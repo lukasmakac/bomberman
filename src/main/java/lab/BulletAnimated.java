@@ -1,6 +1,7 @@
 package lab;
 
 import javafx.geometry.Point2D;
+import javafx.geometry.Rectangle2D;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 
@@ -76,6 +77,14 @@ public class BulletAnimated {
 		
 	}
 
+	public Rectangle2D getBoundingBox() {
+		return new Rectangle2D(position.getX(), position.getY(), size, size);
+	}
+	
+	public boolean overlaps(Dragon dragon) {
+		return getBoundingBox().intersects(dragon.getBoundingBox());
+	}
+	
 	public void reload() {
 		position = start;
 		speed = initialSpeed;
