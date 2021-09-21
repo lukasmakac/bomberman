@@ -1,8 +1,8 @@
 package lab;
 
-public class Routines {
+public final class Routines {
 
-	
+	private Routines() {	}
 	
 	public static void sleep(int timeInMilisenonds) {
 		try {

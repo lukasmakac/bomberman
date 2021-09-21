@@ -5,7 +5,6 @@ import javafx.application.Application;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
-import javafx.scene.canvas.GraphicsContext;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 
@@ -21,7 +20,7 @@ public class App extends Application {
 	
 	private Canvas canvas;
 	private AnimationTimer animationTimer;
-	
+	private Laboratory lab;
 	@Override
 	public void start(Stage primaryStage) {
 		try {
@@ -33,10 +32,10 @@ public class App extends Application {
 			scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
 			primaryStage.setScene(scene);
 			primaryStage.resizableProperty().set(false);
-			primaryStage.setTitle("Java 1 - 2nd laboratory");
+			primaryStage.setTitle("Java 1 - 3rd laboratory");
 			primaryStage.show();
 			
-			
+			lab = new Laboratory(canvas);
 			
 			//Draw scene on a separate thread to avoid blocking UI.
 			animationTimer = new AnimationTimer() {
@@ -66,9 +65,7 @@ public class App extends Application {
 	 *@return      nothing
 	 */
 	private void drawScene(double deltaT) {
-		//graphic context is used for a painting
-		GraphicsContext gc = canvas.getGraphicsContext2D();
-		
+		lab.draw(deltaT);
 	}
 	
 	private void exitProgram(WindowEvent evt) {
