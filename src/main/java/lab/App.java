@@ -1,7 +1,7 @@
 package lab;
 
+import javafx.animation.AnimationTimer;
 import javafx.application.Application;
-import javafx.application.Platform;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
@@ -20,6 +20,7 @@ public class App extends Application {
 	}
 	
 	private Canvas canvas;
+	private AnimationTimer animationTimer;
 	
 	@Override
 	public void start(Stage primaryStage) {
@@ -32,14 +33,28 @@ public class App extends Application {
 			scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
 			primaryStage.setScene(scene);
 			primaryStage.resizableProperty().set(false);
-			primaryStage.setTitle("Java 1 - 1th laboratory");
+			primaryStage.setTitle("Java 1 - 2nd laboratory");
 			primaryStage.show();
 			
-			//Exit program when main window is closed
-			primaryStage.setOnCloseRequest(this::exitProgram);
+			
 			
 			//Draw scene on a separate thread to avoid blocking UI.
-			Platform.runLater(this::drawScene);
+			animationTimer = new AnimationTimer() {
+				private Long previous;
+				
+				@Override
+				public void handle(long now) {
+					if (previous == null) {
+						previous = now;
+					} else {
+						drawScene((now - previous)/1e9);
+						previous = now;
+					}
+				}
+			};
+			animationTimer.start();
+			//Exit program when main window is closed
+			primaryStage.setOnCloseRequest(this::exitProgram);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -50,15 +65,14 @@ public class App extends Application {
 	 *
 	 *@return      nothing
 	 */
-	private void drawScene() {
+	private void drawScene(double deltaT) {
 		//graphic context is used for a painting
 		GraphicsContext gc = canvas.getGraphicsContext2D();
-		// put your code here
-		// gc.setFill(Color.AQUA);
-		// gc.setStroke(Color.BLACK);
+		
 	}
 	
 	private void exitProgram(WindowEvent evt) {
+		animationTimer.stop();
 		System.exit(0);
 	}
 }
