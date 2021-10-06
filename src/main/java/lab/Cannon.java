@@ -24,7 +24,7 @@ public class Cannon {
 	}
 
 	public void simulate(double timeStep) {
-		angle = angle + direction*0.8;
+		angle = angle + direction*80*timeStep;
 		if(angle <=-90 || angle >= 0) {
 			direction*=-1;
 		}

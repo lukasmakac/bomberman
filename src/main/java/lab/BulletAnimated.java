@@ -54,7 +54,7 @@ public class BulletAnimated {
 			double cannonAngle = cannon.getAngle(); 
 			speed = speed
 					.add(new Point2D(Math.cos(cannonAngle) * strenghtOfCannon, Math.sin(cannonAngle) * strenghtOfCannon)
-							.multiply(1 / mass));
+							.multiply(1 / mass).multiply(timeStep/15));
 		} else if (!hitToGround) {
 			accelerate = false;
 			Point2D airResistanceforce = new Point2D(
