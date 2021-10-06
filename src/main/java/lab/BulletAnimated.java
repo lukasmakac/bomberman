@@ -13,7 +13,7 @@ public class BulletAnimated {
 	private Point2D initialSpeed;
 	private double size;
 	private double mass = 2;
-	private double strenghtOfCannon = 2;
+	private double strenghtOfCannon = .1;
 	private double cannonLength = 100;
 	private boolean accelerate = true;
 	private boolean hitToGround = false;
@@ -54,7 +54,7 @@ public class BulletAnimated {
 			double cannonAngle = cannon.getAngle(); 
 			speed = speed
 					.add(new Point2D(Math.cos(cannonAngle) * strenghtOfCannon, Math.sin(cannonAngle) * strenghtOfCannon)
-							.multiply(1 / mass).multiply(timeStep/15));
+							.multiply(1 / mass).multiply(timeStep));
 		} else if (!hitToGround) {
 			accelerate = false;
 			Point2D airResistanceforce = new Point2D(
