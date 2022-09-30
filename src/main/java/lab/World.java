@@ -1,7 +1,6 @@
 package lab;
 
 import javafx.geometry.Point2D;
-import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 
 public class World {
@@ -26,9 +25,8 @@ public class World {
 		return new Point2D(worldPoint.getX(), height - worldPoint.getY());
 	}
 
-	public void draw(Canvas canvas) {
-		GraphicsContext gc = canvas.getGraphicsContext2D();
-		gc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
+	public void draw(GraphicsContext gc) {
+		gc.clearRect(0, 0, width, height);
 		cannon.draw(gc);
 		bulletAnimatted.draw(gc);
 		for(Dragon dragon: dragons) {

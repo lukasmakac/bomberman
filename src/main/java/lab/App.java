@@ -19,8 +19,9 @@ public class App extends Application {
 	}
 	
 	private Canvas canvas;
-	private AnimationTimer animationTimer;
-	private Laboratory lab;
+	
+	private AnimationTimer timer;
+	
 	@Override
 	public void start(Stage primaryStage) {
 		try {
@@ -32,44 +33,21 @@ public class App extends Application {
 			scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
 			primaryStage.setScene(scene);
 			primaryStage.resizableProperty().set(false);
-			primaryStage.setTitle("Java 1 - 3rd laboratory");
+			primaryStage.setTitle("Java 1 - 4th laboratory");
 			primaryStage.show();
 			
-			lab = new Laboratory(canvas);
-			
-			//Draw scene on a separate thread to avoid blocking UI.
-			animationTimer = new AnimationTimer() {
-				private Long previous;
-				
-				@Override
-				public void handle(long now) {
-					if (previous == null) {
-						previous = now;
-					} else {
-						drawScene((now - previous)/1e9);
-						previous = now;
-					}
-				}
-			};
-			animationTimer.start();
 			//Exit program when main window is closed
 			primaryStage.setOnCloseRequest(this::exitProgram);
+			timer = new DrawingThread(canvas);
+			timer.start();
+			//Draw scene on a separate thread to avoid blocking UI.
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
 	
-	/**
-	 * Draws objects into the canvas. Put you code here. 
-	 *
-	 *@return      nothing
-	 */
-	private void drawScene(double deltaT) {
-		lab.draw(deltaT);
-	}
 	
 	private void exitProgram(WindowEvent evt) {
-		animationTimer.stop();
 		System.exit(0);
 	}
 }
