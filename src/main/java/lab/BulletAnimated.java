@@ -5,7 +5,7 @@ import javafx.geometry.Rectangle2D;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 
-public class BulletAnimated {
+public class BulletAnimated  {
 
 	private Point2D position;
 	private Point2D start;
@@ -13,7 +13,7 @@ public class BulletAnimated {
 	private Point2D initialSpeed;
 	private double size;
 	private double mass = 2;
-	private double strenghtOfCannon = .1;
+	private double strenghtOfCannon = 2;
 	private double cannonLength = 100;
 	private boolean accelerate = true;
 	private boolean hitToGround = false;
@@ -54,7 +54,7 @@ public class BulletAnimated {
 			double cannonAngle = cannon.getAngle(); 
 			speed = speed
 					.add(new Point2D(Math.cos(cannonAngle) * strenghtOfCannon, Math.sin(cannonAngle) * strenghtOfCannon)
-							.multiply(1 / mass).multiply(timeStep));
+							.multiply(1 / mass));
 		} else if (!hitToGround) {
 			accelerate = false;
 			Point2D airResistanceforce = new Point2D(
@@ -84,6 +84,7 @@ public class BulletAnimated {
 	public boolean overlaps(Dragon dragon) {
 		return getBoundingBox().intersects(dragon.getBoundingBox());
 	}
+	
 	
 	public void reload() {
 		position = start;
