@@ -13,7 +13,7 @@ public class BulletAnimated  {
 	private Point2D initialSpeed;
 	private double size;
 	private double mass = 2;
-	private double strenghtOfCannon = 2;
+	private double strenghtOfCannon = 50;
 	private double cannonLength = 100;
 	private boolean accelerate = true;
 	private boolean hitToGround = false;
@@ -49,20 +49,19 @@ public class BulletAnimated  {
 	}
 
 	public void simulate(double deltaT) {
-		double timeStep = deltaT * 1000;
 		if (accelerate && start.distance(position) < cannonLength) {
 			double cannonAngle = cannon.getAngle(); 
 			speed = speed
 					.add(new Point2D(Math.cos(cannonAngle) * strenghtOfCannon, Math.sin(cannonAngle) * strenghtOfCannon)
-							.multiply(1 / mass));
+							.multiply(1 / mass * deltaT));
 		} else if (!hitToGround) {
 			accelerate = false;
 			Point2D airResistanceforce = new Point2D(
 					-1. / 2 * crossSectionalArea * Constants.AIR_DENSITY * dragCoefficient * Math.pow(speed.getX(), 2),
 					-1. / 2 * crossSectionalArea * Constants.AIR_DENSITY * 0.47 * Math.pow(speed.getY(), 2));
 			Point2D acceleration = new Point2D(-airResistanceforce.getX() * mass,
-					(-Constants.GRAVITATIONAL_ACCELERATION + airResistanceforce.getY()) * mass);
-			speed = speed.add(acceleration.multiply(timeStep / 1000));
+					-Constants.GRAVITATIONAL_ACCELERATION + airResistanceforce.getY() * mass);
+			speed = speed.add(acceleration.multiply(deltaT));
 		}
 		if (!hitToGround) {
 			position = position.add(speed);
