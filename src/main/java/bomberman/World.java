@@ -1,5 +1,7 @@
 package bomberman;
 
+import bomberman.character.RedFace;
+import bomberman.solid.Wall;
 import javafx.geometry.Point2D;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
@@ -8,30 +10,24 @@ import bomberman.character.Enemy;
 public class World {
 	private double width;
 	private double height;
-	private Wall wall[];
+	private Wall walls[];
 	private Wall middleCubes[];
 	private Enemy enemy;
-
-
-	/*
-	private BulletAnimated bulletAnimatted;
-	private Cannon cannon;
-	private Dragon[] dragons;*/
 
 	public World(double width, double height) {
  		this.width = width;
 		this.height = height;
 
-		this.wall = new Wall[92];
+		this.walls = new Wall[92];
 		this.middleCubes = new Wall[530];
-		this.enemy = new Enemy(this, new Point2D(20,40),new Point2D(10,10), true);
+		this.enemy = new RedFace(this, new Point2D(20,40), new Point2D(10,10));
 
 		// okrajové steny
 		for(int i = 0; i < 23; i++){
-			wall[i] = new Wall(new Point2D( i*20,20));	// bottom wall
-			wall[i+23] = new Wall(new Point2D( i*20,this.height)); // top wall
-			wall[i+46] = new Wall(new Point2D(0,i*20));	// left wall
-			wall[i+69] = new Wall(new Point2D(this.width - 20, i*20));// right wall
+			walls[i] = new Wall(new Point2D( i*20,20));										// bottom wall
+			walls[i+23] = new Wall(new Point2D( i*20,this.height)); 						// top wall
+			walls[i+46] = new Wall(new Point2D(0,i*20));										// left wall
+			walls[i+69] = new Wall(new Point2D(this.width - 20, i*20));		// right wall
 		}
 
 		int n = 0;
@@ -46,15 +42,7 @@ public class World {
 					}
 				}
 			}
-
 		}
-
-
-		/*cannon = new Cannon(this, new Point2D(50, 50), new Point2D(100, 20));
-		bulletAnimatted = new BulletAnimated(this, cannon, new Point2D(30, 60), new Point2D(0, 0), 40);
-		dragons = new Dragon[] { new Dragon(this, new Point2D(50, 200), new Point2D(100, 5)),
-				new Dragon(this, new Point2D(50, 230), new Point2D(60, 5)),
-				new Dragon(this, new Point2D(50, 270), new Point2D(-50, 20)) };*/
 	}
 
 	public Point2D getCanvasPoint(Point2D worldPoint) {
@@ -66,7 +54,7 @@ public class World {
 		gc.setFill(Color.GREEN);
 		gc.fillRect(0,0,width,height);
 
-		for(Wall w : wall){
+		for(Wall w : walls){
 			w.draw(gc,this);
 		}
 
@@ -84,25 +72,10 @@ public class World {
 
 		enemy.draw(gc);
 
-
-		/*cannon.draw(gc);
-		bulletAnimatted.draw(gc);
-		for(Dragon dragon: dragons) {
-			dragon.draw(gc);
-		}*/
 	}
 
 	public void simulate(double timeDelta) {
 		enemy.simulate(timeDelta);
-		/*bulletAnimatted.simulate(timeDelta);
-		cannon.simulate(timeDelta);
-		for(Dragon dragon: dragons) {
-			if (bulletAnimatted.overlaps(dragon)) {
-				dragon.hit();
-				bulletAnimatted.reload();
-			}
-			dragon.simulate(timeDelta);
-		}*/
 	}
 
 	public double getWidth() {

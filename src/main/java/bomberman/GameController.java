@@ -14,7 +14,6 @@ public class GameController {
     public GameController() {	}
 
     public void startGame() {
-
         this.world = new World(canvas.getWidth(), canvas.getHeight());
 
         //Draw scene on a separate thread to avoid blocking UI.
