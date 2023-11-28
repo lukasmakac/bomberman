@@ -24,7 +24,7 @@ public class Dragon {
 	
 	public void draw(GraphicsContext gc) {
 		Point2D canvasPosition = world.getCanvasPoint(position);
-		gc.drawImage(Constants.DRAGON_IMAGE, canvasPosition.getX(), canvasPosition.getY(), size, size);
+		gc.drawImage(Constants.WALL_IMAGE, canvasPosition.getX(), canvasPosition.getY(), size, size);
 	}
 
 

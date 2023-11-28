@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.canvas.Canvas?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.Pane?>
+
+
+<BorderPane fx:id="pane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="515.0" prefWidth="460.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lab.GameController">
+   <center>
+      <Pane prefHeight="467.0" prefWidth="479.0" style="-fx-background-color: lightGrey;" BorderPane.alignment="CENTER">
+         <children>
+            <Canvas fx:id="canvas" height="460.0" layoutY="55.0" width="460.0" />
+         </children>
+      </Pane>
+   </center>
+</BorderPane>

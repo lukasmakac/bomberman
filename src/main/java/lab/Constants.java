@@ -9,9 +9,11 @@ public final class Constants {
 	
 	public static final double AIR_DENSITY = 1.2;
 	
-	public static final Image DRAGON_IMAGE;
+	public static final Image WALL_IMAGE;
+	public static final Image ENEMY_IMAGE;
 	
 	static{ 
-		DRAGON_IMAGE = new Image(Constants.class.getResourceAsStream("dragon.gif"));
+		WALL_IMAGE = new Image(Constants.class.getResourceAsStream("wall.png"));
+		ENEMY_IMAGE = new Image(Constants.class.getResourceAsStream("enemy.gif"));
 	}
 }
