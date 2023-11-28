@@ -1,4 +1,4 @@
-package lab;
+package bomberman;
 
 import javafx.scene.image.Image;
 

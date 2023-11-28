@@ -1,11 +1,9 @@
-package lab;
+package bomberman;
 
 import javafx.scene.canvas.GraphicsContext;
 
-public interface DrawableSimulable {
+public interface Drawable {
 
     void draw(GraphicsContext gc);
-
-    void simulate(double deltaT);
 
 }

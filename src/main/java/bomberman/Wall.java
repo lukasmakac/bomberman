@@ -1,4 +1,4 @@
-package lab;
+package bomberman;
 
 import javafx.geometry.Point2D;
 import javafx.scene.canvas.GraphicsContext;

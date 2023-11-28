@@ -1,16 +1,14 @@
-package lab;
+package bomberman;
 
 import javafx.animation.AnimationTimer;
 import javafx.fxml.FXML;
 import javafx.scene.canvas.Canvas;
-import javafx.scene.control.Button;
-import javafx.scene.control.Slider;
 
 public class GameController {
 
-    private World world;
-    @FXML	// INCLUDLI SME ABY SA ZAHRNULA HODNOTA PLATNA Z TOHO FXML, len tam, kde je canvas
+    @FXML
     private Canvas canvas;
+    private World world;
     private AnimationTimer animationTimer;
 
     public GameController() {	}

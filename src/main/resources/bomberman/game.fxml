@@ -5,7 +5,7 @@
 <?import javafx.scene.layout.Pane?>
 
 
-<BorderPane fx:id="pane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="515.0" prefWidth="460.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lab.GameController">
+<BorderPane fx:id="pane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="515.0" prefWidth="460.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="bomberman.GameController">
    <center>
       <Pane prefHeight="467.0" prefWidth="479.0" style="-fx-background-color: lightGrey;" BorderPane.alignment="CENTER">
          <children>

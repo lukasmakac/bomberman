@@ -1,10 +1,14 @@
-package lab;
+package bomberman.character;
 
 import javafx.geometry.Point2D;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.canvas.GraphicsContext;
+import bomberman.Constants;
+import bomberman.Drawable;
+import bomberman.Simulable;
+import bomberman.World;
 
-public class Enemy implements DrawableSimulable {
+public class Enemy implements Drawable, Simulable {
 
     private Point2D position;
     private Point2D speed;

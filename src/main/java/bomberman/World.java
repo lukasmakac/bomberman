@@ -1,8 +1,9 @@
-package lab;
+package bomberman;
 
 import javafx.geometry.Point2D;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
+import bomberman.character.Enemy;
 
 public class World {
 	private double width;
