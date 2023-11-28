@@ -1,6 +1,7 @@
 package bomberman;
 
 import bomberman.character.RedFace;
+import bomberman.character.Sorcerer;
 import bomberman.solid.Wall;
 import javafx.geometry.Point2D;
 import javafx.scene.canvas.GraphicsContext;
@@ -12,7 +13,8 @@ public class World {
 	private double height;
 	private Wall walls[];
 	private Wall middleCubes[];
-	private Enemy enemy;
+	private Enemy redFace;
+	private Enemy sorcerer;
 
 	public World(double width, double height) {
  		this.width = width;
@@ -20,7 +22,9 @@ public class World {
 
 		this.walls = new Wall[92];
 		this.middleCubes = new Wall[530];
-		this.enemy = new RedFace(this, new Point2D(20,40), new Point2D(10,10));
+
+		this.redFace = new RedFace(this, new Point2D(20,40));
+		this.sorcerer = new Sorcerer(this, new Point2D(20,140));
 
 		// okrajové steny
 		for(int i = 0; i < 23; i++){
@@ -70,12 +74,14 @@ public class World {
 			}
 		}
 
-		enemy.draw(gc);
+		redFace.draw(gc);
+		sorcerer.draw(gc);
 
 	}
 
 	public void simulate(double timeDelta) {
-		enemy.simulate(timeDelta);
+		redFace.simulate(timeDelta);
+		sorcerer.simulate(timeDelta);
 	}
 
 	public double getWidth() {
