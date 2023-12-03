@@ -1,5 +1,6 @@
 package bomberman;
 
+import bomberman.character.Player;
 import bomberman.character.RedFace;
 import bomberman.character.Sorcerer;
 import bomberman.solid.Wall;
@@ -15,6 +16,7 @@ public class World {
 	private Wall middleCubes[];
 	private Enemy redFace;
 	private Enemy sorcerer;
+	private Player player;
 
 	public World(double width, double height) {
  		this.width = width;
@@ -25,6 +27,8 @@ public class World {
 
 		this.redFace = new RedFace(this, new Point2D(20,40));
 		this.sorcerer = new Sorcerer(this, new Point2D(20,140));
+
+		this.player = new Player(this, new Point2D(50, 50));
 
 		// okrajové steny
 		for(int i = 0; i < 23; i++){
@@ -76,6 +80,7 @@ public class World {
 
 		redFace.draw(gc);
 		sorcerer.draw(gc);
+		player.draw(gc);
 
 	}
 
@@ -99,5 +104,15 @@ public class World {
 	public void setHeight(double height) {
 		this.height = height;
 	}
+
+
+	public Player getPlayer() {
+		return player;
+	}
+
+	public void setPlayer(Player player) {
+		this.player = player;
+	}
+
 
 }
