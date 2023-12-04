@@ -1,110 +1,59 @@
 package bomberman;
 
+import static bomberman.constant.StaticLayout.BRICKS;
+import static bomberman.constant.StaticLayout.WALLS;
+
+import bomberman.character.Enemy;
 import bomberman.character.Player;
 import bomberman.character.RedFace;
 import bomberman.character.Sorcerer;
+import bomberman.solid.Brick;
 import bomberman.solid.Wall;
+import java.util.ArrayList;
+import java.util.List;
 import javafx.geometry.Point2D;
+import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
-import bomberman.character.Enemy;
 
 public class World {
-	private double width;
-	private double height;
-	private Wall walls[];
-	private Wall middleCubes[];
-	private Enemy redFace;
-	private Enemy sorcerer;
+
+	private final Canvas canvas;
+
+	private List<Enemy> enemies;
+
 	private Player player;
 
-	public World(double width, double height) {
- 		this.width = width;
-		this.height = height;
+	public World(Canvas canvas) {
+		this.canvas = canvas;
+		this.enemies = new ArrayList<>();
 
-		this.walls = new Wall[92];
-		this.middleCubes = new Wall[530];
+		enemies.add(new RedFace(new Point2D(140, 180)));
+		enemies.add(new Sorcerer(new Point2D(160, 140)));
 
-		this.redFace = new RedFace(this, new Point2D(20,40));
-		this.sorcerer = new Sorcerer(this, new Point2D(20,140));
-
-		this.player = new Player(this, new Point2D(50, 50));
-
-		// okrajové steny
-		for(int i = 0; i < 23; i++){
-			walls[i] = new Wall(new Point2D( i*20,20));										// bottom wall
-			walls[i+23] = new Wall(new Point2D( i*20,this.height)); 						// top wall
-			walls[i+46] = new Wall(new Point2D(0,i*20));										// left wall
-			walls[i+69] = new Wall(new Point2D(this.width - 20, i*20));		// right wall
-		}
-
-		int n = 0;
-
-		// kocky v poli
-		for(int i = 0; i < 23; i++){
-			for(int j = 0; j < 23; j++){
-				n++;
-				if(i % 2 == 1 && i > 2){
-					if(j % 2 == 0 && j > 1){
-						middleCubes[n] = new Wall(new Point2D(j*20, i*20));
-					}
-				}
-			}
-		}
+		this.player = new Player(new Point2D(180, 180));
 	}
 
-	public Point2D getCanvasPoint(Point2D worldPoint) {
-		return new Point2D(worldPoint.getX(), height - worldPoint.getY());
-	}
+	public void draw() {
+		gc().clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
+		gc().setFill(Color.GREEN);
+		gc().fillRect(0,0, canvas.getWidth(), canvas.getHeight());
 
-	public void draw(GraphicsContext gc) {
-		gc.clearRect(0, 0, width, height);
-		gc.setFill(Color.GREEN);
-		gc.fillRect(0,0,width,height);
-
-		for(Wall w : walls){
-			w.draw(gc,this);
+		for(Wall w: WALLS){
+			w.draw(canvas.getGraphicsContext2D());
 		}
 
-		int n = 0;
-		for(int i = 0; i < 23; i++){
-			for(int j = 0; j < 23; j++){
-				n++;
-				if(i % 2 == 1 && i > 2){
-					if(j % 2 == 0 && j > 1){
-						middleCubes[n].draw(gc,this);
-					}
-				}
-			}
+		for (Brick b: BRICKS) {
+			b.draw(canvas.getGraphicsContext2D());
 		}
 
-		redFace.draw(gc);
-		sorcerer.draw(gc);
-		player.draw(gc);
-
+		enemies.forEach(e -> e.draw(gc()));
+		player.draw(gc());
 	}
 
 	public void simulate(double timeDelta) {
-		redFace.simulate(timeDelta);
-		sorcerer.simulate(timeDelta);
+		enemies.forEach(e -> e.simulate(gc(), timeDelta));
 	}
-
-	public double getWidth() {
-		return width;
-	}
-
-	public void setWidth(double width) {
-		this.width = width;
-	}
-
-	public double getHeight() {
-		return height;
-	}
-
-	public void setHeight(double height) {
-		this.height = height;
-	}
-
 
 	public Player getPlayer() {
 		return player;
@@ -112,6 +61,14 @@ public class World {
 
 	public void setPlayer(Player player) {
 		this.player = player;
+	}
+
+	public Canvas getCanvas() {
+		return canvas;
+	}
+
+	protected GraphicsContext gc() {
+		return canvas.getGraphicsContext2D();
 	}
 
 

@@ -9,18 +9,18 @@ public class GameController {
 
     @FXML
     private Canvas canvas;
-    private World world;
+
     private AnimationTimer animationTimer;
 
     public GameController() {	}
 
     public void startGame() {
-        this.world = new World(canvas.getWidth(), canvas.getHeight());
+        World world = new World(canvas);
 
         canvas.addEventHandler(KeyEvent.KEY_PRESSED, new PlayerEventHandler(world.getPlayer()));
 
         //Draw scene on a separate thread to avoid blocking UI.
-        animationTimer = new DrawingThread(canvas, world);
+        animationTimer = new DrawingThread(world);
         animationTimer.start();
     }
 

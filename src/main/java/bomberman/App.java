@@ -17,9 +17,7 @@ public class App extends Application {
 	public static void main(String[] args) {
 		launch(args);
 	}
-	
-	private Canvas canvas;
-	
+
 	private GameController controller;
 
 	@Override
@@ -29,20 +27,18 @@ public class App extends Application {
 				getClass().getResource("game.fxml")
 			);
 			BorderPane pane = loader.load();
-
-			Scene scene = new Scene(pane);	// AJ TOTO SME PRIDALI
+			Scene scene = new Scene(pane);
 
 			primaryStage.setScene(scene);
 			primaryStage.resizableProperty().set(false);
 			primaryStage.setTitle("BOMBERMAN");
 			primaryStage.show();
-			controller = loader.getController(); // NAČÍTA CONTROLLER Z TOHO PROGRAMU KDE SME SI HO VYBRALI
+
+			controller = loader.getController();
 			controller.startGame();
 
 			//Exit program when main window is closed
 			primaryStage.setOnCloseRequest(this::exitProgram);
-
-			//Draw scene on a separate thread to avoid blocking UI.
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

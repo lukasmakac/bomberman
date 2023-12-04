@@ -1,5 +1,7 @@
 package bomberman.common;
 
+import javafx.scene.canvas.GraphicsContext;
+
 public interface Simulable {
-  void simulate(double deltaT);
+  void simulate(GraphicsContext gc, double deltaT);
 }

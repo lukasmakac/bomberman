@@ -9,4 +9,6 @@ module lab {
   opens bomberman.solid to javafx.fxml;
   exports bomberman.common;
   opens bomberman.common to javafx.fxml;
+  exports bomberman.constant;
+  opens bomberman.constant to javafx.fxml;
 }

@@ -1,6 +1,7 @@
 package bomberman.character;
 
-import bomberman.World;
+import static bomberman.common.Utils.getImage;
+
 import javafx.geometry.Point2D;
 
 public class Player extends Character {
@@ -10,34 +11,25 @@ public class Player extends Character {
 
   private Point2D position;
 
-
-  public Player(World world, Point2D position) {
-    super(world, position, IMAGE);
-    this.position = position;
-  }
-
-  public Point2D getPosition() {
-    return position;
-  }
-
-  public void setPosition(Point2D position) {
+  public Player(Point2D position) {
+    super(getImage(IMAGE), position);
     this.position = position;
   }
 
   public void moveUp() {
-    this.position.add(step, 0);
+    this.position = this.position.add(step, 0);
   }
 
   public void moveDown() {
-    this.position.subtract(step, 0);
+    this.position = this.position.subtract(step, 0);
   }
 
   public void moveRight() {
-    this.position.subtract(0, step);
+    this.position = this.position.subtract(0, step);
   }
 
   public void moveLeft() {
-    this.position.add(0, step);
+    this.position = this.position.add(0, step);
   }
 
 }

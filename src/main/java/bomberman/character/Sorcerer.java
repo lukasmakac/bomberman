@@ -1,6 +1,6 @@
 package bomberman.character;
 
-import bomberman.World;
+import bomberman.constant.MovementType;
 import javafx.geometry.Point2D;
 
 public class Sorcerer extends Enemy {
@@ -8,8 +8,8 @@ public class Sorcerer extends Enemy {
 
   private static final int SPEED = 50;
 
-  public Sorcerer(World world, Point2D position) {
-    super(world, position, SPEED, IMAGE);
+  public Sorcerer(Point2D position) {
+    super(position, SPEED, IMAGE, MovementType.HORIZONTAL);
   }
 
 
