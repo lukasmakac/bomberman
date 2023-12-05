@@ -19,9 +19,7 @@ import javafx.scene.paint.Color;
 public class World {
 
 	private final Canvas canvas;
-
-	private List<Enemy> enemies;
-
+	private final List<Enemy> enemies;
 	private Player player;
 
 	public World(Canvas canvas) {

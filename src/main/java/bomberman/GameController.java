@@ -16,9 +16,6 @@ public class GameController {
 
     public void startGame() {
         World world = new World(canvas);
-
-        canvas.addEventHandler(KeyEvent.KEY_PRESSED, new PlayerEventHandler(world.getPlayer()));
-
         //Draw scene on a separate thread to avoid blocking UI.
         animationTimer = new DrawingThread(world);
         animationTimer.start();
@@ -27,7 +24,5 @@ public class GameController {
     public void stopGame() {
         animationTimer.stop();
     }
-
-
 
 }

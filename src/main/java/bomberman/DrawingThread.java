@@ -1,8 +1,7 @@
 package bomberman;
 
 import javafx.animation.AnimationTimer;
-import javafx.scene.canvas.Canvas;
-import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.input.KeyEvent;
 
 public class DrawingThread extends AnimationTimer {
 
@@ -11,15 +10,16 @@ public class DrawingThread extends AnimationTimer {
 
 	public DrawingThread(World world) {
 		this.world = world;
+		this.world.getCanvas().addEventHandler(KeyEvent.KEY_TYPED, new PlayerEventHandler(world.getPlayer()));
 	}
 
 	@Override
 	public void handle(long now) {
 		world.draw();
-		if (lastTime > 0) {
-			//time are in nanoseconds and method simulate expects seconds
-			world.simulate((now - lastTime) / (1.5 * 1e11));
-		}
+
+		//time are in nanoseconds and method simulate expects seconds
+		world.simulate((now - lastTime) / (1.5 * 1e11));
+
 		lastTime = now;
 	}
 
