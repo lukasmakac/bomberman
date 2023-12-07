@@ -1,4 +1,4 @@
-module lab {
+module bomberman {
     requires transitive javafx.controls;
     requires javafx.fxml;
     opens bomberman to javafx.fxml;
