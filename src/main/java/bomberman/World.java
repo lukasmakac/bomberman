@@ -28,6 +28,7 @@ public class World {
 
 		this.enemies.add(new RedFace(new Point2D(140, 180)));
 		this.enemies.add(new Sorcerer(new Point2D(160, 140)));
+    this.enemies.add(new Sorcerer(new Point2D(160, 220)));
 
 		this.player = new Player(new Point2D(200, 180));
 	}
