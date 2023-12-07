@@ -1,7 +1,6 @@
 package bomberman;
 
 import javafx.animation.AnimationTimer;
-import javafx.scene.input.KeyEvent;
 
 public class DrawingThread extends AnimationTimer {
 
@@ -10,7 +9,6 @@ public class DrawingThread extends AnimationTimer {
 
 	public DrawingThread(World world) {
 		this.world = world;
-		this.world.getCanvas().addEventHandler(KeyEvent.KEY_TYPED, new PlayerEventHandler(world.getPlayer()));
 	}
 
 	@Override
