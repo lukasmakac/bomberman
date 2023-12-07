@@ -14,7 +14,6 @@ public class PlayerEventHandler implements EventHandler<KeyEvent> {
 
   @Override
   public void handle(KeyEvent keyEvent) {
-    System.out.println("TEST");
     switch (keyEvent.getCode()) {
       case UP -> player.moveUp();
       case DOWN -> player.moveDown();

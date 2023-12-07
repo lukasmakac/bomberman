@@ -11,6 +11,8 @@ import bomberman.solid.Brick;
 import bomberman.solid.Wall;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Consumer;
+import java.util.function.Supplier;
 import javafx.geometry.Point2D;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
@@ -29,7 +31,7 @@ public class World {
 		enemies.add(new RedFace(new Point2D(140, 180)));
 		enemies.add(new Sorcerer(new Point2D(160, 140)));
 
-		this.player = new Player(new Point2D(180, 180));
+		this.player = new Player(new Point2D(200, 140));
 	}
 
 	public void draw() {
@@ -53,6 +55,13 @@ public class World {
 		enemies.forEach(e -> e.simulate(gc(), timeDelta));
 	}
 
+	public void checkCollisions(Runnable exitAction) {
+		if(enemies.stream().anyMatch(e -> player.hitBy(e))){
+			exitAction.run();
+		}
+	}
+
+
 	public Player getPlayer() {
 		return player;
 	}
@@ -68,6 +77,5 @@ public class World {
 	protected GraphicsContext gc() {
 		return canvas.getGraphicsContext2D();
 	}
-
 
 }

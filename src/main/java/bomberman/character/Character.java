@@ -1,12 +1,13 @@
 package bomberman.character;
 
+import bomberman.common.Collisional;
 import bomberman.common.Drawable;
 import javafx.geometry.Point2D;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 
-public abstract class Character implements Drawable {
+public abstract class Character implements Drawable, Collisional {
 
   public static final int SIZE = 20;
 
