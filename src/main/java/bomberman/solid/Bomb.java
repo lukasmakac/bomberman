@@ -13,6 +13,7 @@ import javafx.scene.image.Image;
 public class Bomb implements Drawable, Collisional {
 
   public static final Image IMAGE = getImage("bomb.png");
+  public static final Integer SIZE = 20;
 
   private final Point2D position;
 
@@ -27,6 +28,6 @@ public class Bomb implements Drawable, Collisional {
 
   @Override
   public Rectangle2D getBoundingBox() {
-    return null;
+    return new Rectangle2D(position.getX(), position.getY(), SIZE, SIZE);
   }
 }

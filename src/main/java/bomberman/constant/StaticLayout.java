@@ -21,8 +21,8 @@ public final class StaticLayout {
   public static final List<Brick> BRICKS = new ArrayList<>();
   
   static {
-    WALLS.addAll(toWalls(generateXPoints(new Point2D(0,20), 20, 460)));   // TOP
-    WALLS.addAll(toWalls(generateXPoints(new Point2D(0,460), 20, 460)));  // BOTTOM
+    WALLS.addAll(toWalls(generateXPoints(new Point2D(0, 0), 20, 440)));    // TOP
+    WALLS.addAll(toWalls(generateXPoints(new Point2D(0, 440), 20, 440)));  // BOTTOM
     WALLS.addAll(toWalls(generateYPoints(new Point2D(0,0), 20, 460)));    // LEFT
     WALLS.addAll(toWalls(generateYPoints(new Point2D(440,0), 20, 460)));  // RIGHT
 

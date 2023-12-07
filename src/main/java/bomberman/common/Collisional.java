@@ -11,8 +11,11 @@ public interface Collisional {
     return getBoundingBox().intersects(other.getBoundingBox());
   }
 
-  default boolean hitBy(List<Collisional> others) {
+  default boolean hitBy(List<? extends Collisional> others) {
     return others.stream().anyMatch(this::hitBy);
+  }
+
+  default void collision() {
   }
 
 }

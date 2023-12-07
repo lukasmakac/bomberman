@@ -12,12 +12,13 @@ import javafx.scene.image.Image;
 
 public class Brick implements Drawable, Collisional {
   public static final Image IMAGE = getImage("brick.png");
+  public static final Integer SIZE = 20;
 
   private final Point2D position;
 
   public Brick(Point2D position){
     this.position = position;
-  };
+  }
 
   @Override
   public void draw(GraphicsContext gc) {
@@ -26,7 +27,7 @@ public class Brick implements Drawable, Collisional {
 
   @Override
   public Rectangle2D getBoundingBox() {
-    return null;
+    return new Rectangle2D(position.getX(), position.getY() - SIZE, SIZE, SIZE);
   }
 
 }

@@ -11,8 +11,6 @@ import bomberman.solid.Brick;
 import bomberman.solid.Wall;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.function.Consumer;
-import java.util.function.Supplier;
 import javafx.geometry.Point2D;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
@@ -22,16 +20,16 @@ public class World {
 
 	private final Canvas canvas;
 	private final List<Enemy> enemies;
-	private Player player;
+	private final Player player;
 
 	public World(Canvas canvas) {
 		this.canvas = canvas;
 		this.enemies = new ArrayList<>();
 
-		enemies.add(new RedFace(new Point2D(140, 180)));
-		enemies.add(new Sorcerer(new Point2D(160, 140)));
+		this.enemies.add(new RedFace(new Point2D(140, 180)));
+		this.enemies.add(new Sorcerer(new Point2D(160, 140)));
 
-		this.player = new Player(new Point2D(200, 140));
+		this.player = new Player(new Point2D(200, 180));
 	}
 
 	public void draw() {
@@ -55,19 +53,21 @@ public class World {
 		enemies.forEach(e -> e.simulate(gc(), timeDelta));
 	}
 
-	public void checkCollisions(Runnable exitAction) {
-		if(enemies.stream().anyMatch(e -> player.hitBy(e))){
-			exitAction.run();
-		}
+	public void checkEnemyCollisions(Runnable exitAction) {
+		enemies.parallelStream().forEach(e -> {
+			if (e.hitBy(player)) {
+				exitAction.run();
+			}
+
+			if (e.hitBy(WALLS) || e.hitBy(BRICKS) || enemies.stream().filter(enemy -> !enemy.equals(e)).anyMatch(e::hitBy)) {
+				e.collision();
+			}
+		});
 	}
 
 
 	public Player getPlayer() {
 		return player;
-	}
-
-	public void setPlayer(Player player) {
-		this.player = player;
 	}
 
 	public Canvas getCanvas() {

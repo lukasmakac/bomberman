@@ -24,11 +24,12 @@ public abstract class Enemy extends Character implements Simulable {
         switch (movementType) {
             case VERTICAL -> position = computeVertical(gc, position, deltaT);
             case HORIZONTAL -> position = computeHorizontal(gc, position, deltaT);
-        };
+        }
     }
 
-    public void hit(){
-        speed *= -1;
+    @Override
+    public void collision() {
+        this.speed *= -1;
     }
 
     private Point2D computeVertical(GraphicsContext gc, Point2D position, double step) {
@@ -41,8 +42,21 @@ public abstract class Enemy extends Character implements Simulable {
         return new Point2D(x, position.getY());
     }
 
-    private Double compute(Double value, Double step, Double max) {
-        return (value + (speed * step) * max) % max;
+    private Double compute(Double currentPosition, Double step, Double max) {
+        double updatedPosition = (currentPosition + (speed * step) * max) % max;
+        return correctPosition(updatedPosition, Character.SIZE + 1, max - 1);
+    }
+
+    private Double correctPosition(double position, double min, double max) {
+        if (position < min) {
+            collision();
+            return min;
+        } else if (position > max) {
+            collision();
+            return max;
+        } else {
+            return position;
+        }
     }
 
 }

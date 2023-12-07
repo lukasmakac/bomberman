@@ -5,7 +5,9 @@ import javafx.animation.AnimationTimer;
 public class DrawingThread extends AnimationTimer {
 
 	private final World world;
-	private Runnable exitAction;
+	private final Runnable exitAction;
+
+	public static final int MAX_STEP = 5;
 
 	private long lastTime = -1;
 
@@ -19,8 +21,8 @@ public class DrawingThread extends AnimationTimer {
 		world.draw();
 
 		//time are in nanoseconds and method simulate expects seconds
-		world.simulate((now - lastTime) / (1.5 * 1e11));
-		world.checkCollisions(exitAction);
+		world.simulate(Math.min(MAX_STEP, (now - lastTime) / (1.5 * 1e11)));
+		world.checkEnemyCollisions(exitAction);
 
 		lastTime = now;
 	}
