@@ -19,6 +19,7 @@ public class PlayerEventHandler implements EventHandler<KeyEvent> {
       case DOWN -> player.moveDown();
       case LEFT -> player.moveLeft();
       case RIGHT -> player.moveRight();
+      case SPACE -> player.dropBomb();
     }
   }
 }

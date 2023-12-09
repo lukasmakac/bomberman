@@ -5,6 +5,8 @@ import javafx.animation.AnimationTimer;
 public class DrawingThread extends AnimationTimer {
 
 	private final World world;
+
+	// exitAction mi nie je jasné
 	private final Runnable exitAction;
 
 	public static final int MAX_STEP = 5;

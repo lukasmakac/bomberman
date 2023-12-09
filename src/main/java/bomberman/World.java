@@ -26,11 +26,11 @@ public class World {
 		this.canvas = canvas;
 		this.enemies = new ArrayList<>();
 
-		this.enemies.add(new RedFace(new Point2D(140, 180)));
-		this.enemies.add(new Sorcerer(new Point2D(160, 140)));
-    this.enemies.add(new Sorcerer(new Point2D(160, 220)));
+		this.enemies.add(new RedFace(new Point2D(70, 20)));
+		this.enemies.add(new Sorcerer(new Point2D(175, 270)));
+		this.enemies.add(new Sorcerer(new Point2D(160, 220)));
 
-		this.player = new Player(new Point2D(200, 180));
+		this.player = new Player(new Point2D(470, 470));
 	}
 
 	public void draw() {
@@ -51,21 +51,30 @@ public class World {
 	}
 
 	public void simulate(double timeDelta) {
+		player.simulate(timeDelta);
 		enemies.forEach(e -> e.simulate(gc(), timeDelta));
 	}
 
 	public void checkEnemyCollisions(Runnable exitAction) {
 		enemies.parallelStream().forEach(e -> {
 			if (e.hitBy(player)) {
+				// stop program
 				exitAction.run();
 			}
 
+			// stream použitý na paralélne spracovanie hitBy
 			if (e.hitBy(WALLS) || e.hitBy(BRICKS) || enemies.stream().filter(enemy -> !enemy.equals(e)).anyMatch(e::hitBy)) {
 				e.collision();
 			}
 		});
 	}
 
+	public void checkPlayerCollisions(Runnable exitAction) {
+		if (player.hitBy(WALLS) || player.hitBy(BRICKS)) {
+			player.collision();
+		}
+
+	}
 
 	public Player getPlayer() {
 		return player;

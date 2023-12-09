@@ -3,7 +3,6 @@ package bomberman.constant;
 import static bomberman.common.Utils.generateXPoints;
 import static bomberman.common.Utils.generateXYPoints;
 import static bomberman.common.Utils.generateYPoints;
-import static bomberman.common.Utils.toBricks;
 import static bomberman.common.Utils.toWalls;
 
 import bomberman.solid.Brick;
@@ -21,21 +20,26 @@ public final class StaticLayout {
   public static final List<Brick> BRICKS = new ArrayList<>();
   
   static {
-    WALLS.addAll(toWalls(generateXPoints(new Point2D(0, 0), 20, 440)));    // TOP
-    WALLS.addAll(toWalls(generateXPoints(new Point2D(0, 440), 20, 440)));  // BOTTOM
-    WALLS.addAll(toWalls(generateYPoints(new Point2D(0,0), 20, 460)));    // LEFT
-    WALLS.addAll(toWalls(generateYPoints(new Point2D(440,0), 20, 460)));  // RIGHT
+    WALLS.addAll(toWalls(generateXPoints(new Point2D(0, 0), 20, 510)));    // TOP
+    WALLS.addAll(toWalls(generateXPoints(new Point2D(0, 490), 20, 510)));  // BOTTOM
+    WALLS.addAll(toWalls(generateYPoints(new Point2D(0, 0), 20, 510)));    // LEFT
+    WALLS.addAll(toWalls(generateYPoints(new Point2D(490, 0), 20, 510)));  // RIGHT
 
-    BRICKS.addAll(toBricks(generateXYPoints(new Point2D(40,60), 40, 440))); 
-    BRICKS.addAll(toBricks(generateXYPoints(new Point2D(80,100), 40, 440))); 
-    BRICKS.addAll(toBricks(generateXYPoints(new Point2D(120,140), 40, 440))); 
-    BRICKS.addAll(toBricks(generateXYPoints(new Point2D(160,180), 40, 440))); 
-    BRICKS.addAll(toBricks(generateXYPoints(new Point2D(200,220), 40, 440))); 
-    BRICKS.addAll(toBricks(generateXYPoints(new Point2D(240,260), 40, 440))); 
-    BRICKS.addAll(toBricks(generateXYPoints(new Point2D(280,300), 40, 440))); 
-    BRICKS.addAll(toBricks(generateXYPoints(new Point2D(320,340), 40, 440))); 
-    BRICKS.addAll(toBricks(generateXYPoints(new Point2D(360,380), 40, 440))); 
-    BRICKS.addAll(toBricks(generateXYPoints(new Point2D(400,420), 40, 440))); 
+    WALLS.addAll(toWalls(generateXYPoints(new Point2D(45, 45), 50, 480)));
+    WALLS.addAll(toWalls(generateXYPoints(new Point2D(95, 95), 50, 480)));
+    WALLS.addAll(toWalls(generateXYPoints(new Point2D(145, 145), 50, 480)));
+    WALLS.addAll(toWalls(generateXYPoints(new Point2D(195, 195), 50, 480)));
+    WALLS.addAll(toWalls(generateXYPoints(new Point2D(245, 245), 50, 480)));
+    WALLS.addAll(toWalls(generateXYPoints(new Point2D(295, 295), 50, 480)));
+    WALLS.addAll(toWalls(generateXYPoints(new Point2D(345, 345), 50, 480)));
+    WALLS.addAll(toWalls(generateXYPoints(new Point2D(395, 395), 50, 480)));
+    WALLS.addAll(toWalls(generateXYPoints(new Point2D(445, 445), 50, 480)));
+    WALLS.addAll(toWalls(generateXYPoints(new Point2D(495, 495), 50, 495)));
+
+   /* WALLS.addAll(toWalls(generateXYPoints(new Point2D(545,545), 50, 480)));
+    WALLS.addAll(toWalls(generateXYPoints(new Point2D(595,595), 50, 480)));
+    WALLS.addAll(toWalls(generateXYPoints(new Point2D(645,645), 50, 480)));*/
+
   }
 
 }
