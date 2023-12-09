@@ -1,7 +1,6 @@
 package bomberman.solid;
 
 import static bomberman.common.Utils.getImage;
-import static bomberman.common.Utils.translateY;
 
 import bomberman.common.Collisional;
 import bomberman.common.Drawable;
@@ -14,6 +13,7 @@ public class Bomb implements Drawable, Collisional {
 
   public static final Image IMAGE = getImage("bomb.png");
   public static final Integer SIZE = 20;
+  public static final Integer TIME_TO_EXPLODE = 5; // explosion time in seconds
 
   private final Point2D position;
 
@@ -23,11 +23,17 @@ public class Bomb implements Drawable, Collisional {
 
   @Override
   public void draw(GraphicsContext gc) {
-    gc.drawImage(IMAGE, position.getX(), translateY(position.getY(), gc.getCanvas().getHeight()), 20, 20);
+    gc.drawImage(IMAGE, position.getX(), position.getY(), 20, 20);
   }
 
   @Override
   public Rectangle2D getBoundingBox() {
     return new Rectangle2D(position.getX(), position.getY(), SIZE, SIZE);
+  }
+
+
+  public void explode() {
+    // TODO lukas.maruniak 2023/12/9
+
   }
 }

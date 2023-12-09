@@ -30,10 +30,6 @@ public class Player extends Character {
     this.position = this.position.subtract(step, 0);
   }
 
-  public void dropBomb() {
-
-  }
-
   public Point2D getPosition() {
     return position;
   }

@@ -12,6 +12,7 @@ public class GameController implements EventHandler<KeyEvent> {
     @FXML
     private Canvas canvas;
     private DrawingThread drawingThread;
+
     private World world;
 
     @FXML
@@ -47,7 +48,7 @@ public class GameController implements EventHandler<KeyEvent> {
             case DOWN -> world.getPlayer().moveDown();
             case LEFT -> world.getPlayer().moveLeft();
             case RIGHT -> world.getPlayer().moveRight();
-            case SPACE -> world.getPlayer().dropBomb();
+            case SPACE -> world.dropBomb(world.getPlayer().getPosition());
         }
     }
 

@@ -7,8 +7,7 @@ import bomberman.character.Enemy;
 import bomberman.character.Player;
 import bomberman.character.RedFace;
 import bomberman.character.Sorcerer;
-import bomberman.solid.Brick;
-import bomberman.solid.Wall;
+import bomberman.solid.Bomb;
 import java.util.ArrayList;
 import java.util.List;
 import javafx.geometry.Point2D;
@@ -20,7 +19,9 @@ public class World {
 
 	private final Canvas canvas;
 	private final List<Enemy> enemies;
-	private Player player;
+
+	private final Player player;
+	private final List<Bomb> bombs;
 
 	public World(Canvas canvas) {
 		this.canvas = canvas;
@@ -31,6 +32,7 @@ public class World {
 		this.enemies.add(new Sorcerer(new Point2D(160, 220)));
 
 		this.player = new Player(new Point2D(470, 470));
+		this.bombs = new ArrayList<>();
 	}
 
 	public void draw() {
@@ -38,45 +40,41 @@ public class World {
 		gc().setFill(Color.GREEN);
 		gc().fillRect(0,0, canvas.getWidth(), canvas.getHeight());
 
-		for(Wall w: WALLS){
-			w.draw(canvas.getGraphicsContext2D());
-		}
-
-		for (Brick b: BRICKS) {
-			b.draw(canvas.getGraphicsContext2D());
-		}
+		WALLS.forEach(w -> w.draw(gc()));
+		BRICKS.forEach(b -> b.draw(gc()));
 
 		enemies.forEach(e -> e.draw(gc()));
+		bombs.forEach(b -> b.draw(gc()));
+
 		player.draw(gc());
 	}
 
-	public void simulate(double timeDelta) {
-		enemies.forEach(e -> e.simulate(gc(), timeDelta));
+	public Canvas getCanvas() {
+		return canvas;
 	}
 
-	public void checkEnemyCollisions(Runnable exitAction) {
-		enemies.parallelStream().forEach(e -> {
-			if (e.hitBy(player)) {
-				// stop program
-				exitAction.run();
-			}
-
-			if (e.hitBy(WALLS) || e.hitBy(BRICKS) || enemies.stream().filter(enemy -> !enemy.equals(e)).anyMatch(e::hitBy)) {
-				e.changeDirection();
-			}
-		});
+	public List<Enemy> getEnemies() {
+		return enemies;
 	}
+
+  public List<Bomb> getBombs() {
+    return bombs;
+  }
 
 	public Player getPlayer() {
 		return player;
 	}
 
-	public void setPlayer(Player player) {
-		this.player = player;
+	public void removeEnemy(Enemy enemy) {
+		this.enemies.remove(enemy);
 	}
 
-	public Canvas getCanvas() {
-		return canvas;
+	public void dropBomb(Point2D position) {
+		this.bombs.add(new Bomb(position));
+	}
+
+	public void removeBomb(Bomb e) {
+		this.bombs.remove(e);
 	}
 
 	protected GraphicsContext gc() {
