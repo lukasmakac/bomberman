@@ -15,7 +15,4 @@ public interface Collisional {
     return others.stream().anyMatch(this::hitBy);
   }
 
-  default void collision() {
-  }
-
 }

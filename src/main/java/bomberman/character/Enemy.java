@@ -27,8 +27,7 @@ public abstract class Enemy extends Character implements Simulable {
         }
     }
 
-    @Override
-    public void collision() {
+    public void changeDirection() {
         this.speed *= -1;
     }
 
@@ -49,10 +48,10 @@ public abstract class Enemy extends Character implements Simulable {
 
     private Double correctPosition(double position, double min, double max) {
         if (position < min) {
-            collision();
+            changeDirection();
             return min;
         } else if (position > max) {
-            collision();
+            changeDirection();
             return max;
         } else {
             return position;

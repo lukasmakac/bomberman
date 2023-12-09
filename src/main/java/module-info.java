@@ -11,6 +11,4 @@ module bomberman {
   opens bomberman.common to javafx.fxml;
   exports bomberman.constant;
   opens bomberman.constant to javafx.fxml;
-  exports bomberman.handler;
-  opens bomberman.handler to javafx.fxml;
 }

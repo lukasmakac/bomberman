@@ -1,9 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.canvas.Canvas?>
-<?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
@@ -12,8 +10,8 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 <BorderPane fx:id="pane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
-  prefHeight="590.0" prefWidth="510.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1"
-  fx:controller="bomberman.GameController">
+  onKeyPressed="#onKeyPressed" prefHeight="590.0" prefWidth="510.0" xmlns="http://javafx.com/javafx/17.0.2-ea"
+  xmlns:fx="http://javafx.com/fxml/1" fx:controller="bomberman.GameController">
    <center>
      <Pane prefHeight="550.0" prefWidth="520.0" style="-fx-background-color: lightGrey;" BorderPane.alignment="CENTER">
          <children>
@@ -26,12 +24,9 @@
       <columnConstraints>
         <ColumnConstraints hgrow="SOMETIMES" maxWidth="189.20001220703125" minWidth="10.0"
           prefWidth="138.3999755859375"/>
-        <ColumnConstraints hgrow="SOMETIMES" maxWidth="265.6000244140625" minWidth="10.0"
-          prefWidth="265.6000244140625"/>
-        <ColumnConstraints hgrow="SOMETIMES" maxWidth="156.4000244140625" minWidth="6.79998779296875"
-          prefWidth="53.60003662109375"/>
-        <ColumnConstraints hgrow="SOMETIMES" maxWidth="169.20001220703125" minWidth="10.0"
-          prefWidth="52.4000244140625"/>
+        <ColumnConstraints hgrow="SOMETIMES" maxWidth="265.6000244140625" minWidth="10.0" prefWidth="233.0"/>
+        <ColumnConstraints hgrow="SOMETIMES" maxWidth="156.4000244140625" minWidth="6.79998779296875" prefWidth="52.0"/>
+        <ColumnConstraints hgrow="SOMETIMES" maxWidth="169.20001220703125" minWidth="10.0" prefWidth="87.5"/>
       </columnConstraints>
       <rowConstraints>
         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
@@ -39,19 +34,18 @@
         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
       </rowConstraints>
       <children>
-        <TextField fx:id="playerInsert" prefHeight="26.0" prefWidth="56.0"/>
-        <Button mnemonicParsing="false" onMouseClicked="#insertPlayerName" prefHeight="26.0" prefWidth="61.0" text="OK"
-          GridPane.columnIndex="1"/>
-        <Text fx:id="playerTitle" strokeType="OUTSIDE" strokeWidth="0.0" text="Player" textAlignment="CENTER"
+        <Text fx:id="playerName" strokeType="OUTSIDE" strokeWidth="0.0" text="Player" textAlignment="CENTER"
           wrappingWidth="232.7863392829895" GridPane.columnIndex="1" GridPane.rowIndex="1">
           <font>
             <Font size="25.0"/>
           </font>
         </Text>
-        <Text lineSpacing="1.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Score :" textAlignment="RIGHT"
-          wrappingWidth="42.93682622909546" GridPane.columnIndex="2"/>
-        <Label fx:id="score" prefHeight="18.0" prefWidth="24.0" text="0" textAlignment="RIGHT"
+        <Text lineSpacing="1.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Score :" wrappingWidth="42.93682622909546"
+          GridPane.columnIndex="2"/>
+        <Label fx:id="scoreLabel" prefHeight="18.0" prefWidth="24.0" text="0" textAlignment="RIGHT"
           GridPane.columnIndex="3"/>
+        <Label fx:id="position" text="[0,0]" GridPane.columnIndex="3" GridPane.rowIndex="1"/>
+        <Label text="Position:" GridPane.columnIndex="2" GridPane.rowIndex="1"/>
       </children>
     </GridPane>
   </top>

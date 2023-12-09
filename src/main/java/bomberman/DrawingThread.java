@@ -5,17 +5,15 @@ import javafx.animation.AnimationTimer;
 public class DrawingThread extends AnimationTimer {
 
 	private final World world;
-
-	// exitAction mi nie je jasné
-	private final Runnable exitAction;
+	private final GameController controller;
 
 	public static final int MAX_STEP = 5;
 
 	private long lastTime = -1;
 
-	public DrawingThread(World world, Runnable exitAction) {
+	public DrawingThread(World world, GameController controller) {
 		this.world = world;
-		this.exitAction = exitAction;
+		this.controller = controller;
 	}
 
 	@Override
@@ -24,7 +22,10 @@ public class DrawingThread extends AnimationTimer {
 
 		//time are in nanoseconds and method simulate expects seconds
 		world.simulate(Math.min(MAX_STEP, (now - lastTime) / (1.5 * 1e11)));
-		world.checkEnemyCollisions(exitAction);
+		world.checkEnemyCollisions(controller::stopGame);
+
+		controller.setPositionText(
+				"[" + world.getPlayer().getPosition().getX() + "," + world.getPlayer().getPosition().getY() + "]");
 
 		lastTime = now;
 	}

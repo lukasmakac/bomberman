@@ -20,7 +20,7 @@ public class World {
 
 	private final Canvas canvas;
 	private final List<Enemy> enemies;
-	private final Player player;
+	private Player player;
 
 	public World(Canvas canvas) {
 		this.canvas = canvas;
@@ -51,7 +51,6 @@ public class World {
 	}
 
 	public void simulate(double timeDelta) {
-		player.simulate(timeDelta);
 		enemies.forEach(e -> e.simulate(gc(), timeDelta));
 	}
 
@@ -62,22 +61,18 @@ public class World {
 				exitAction.run();
 			}
 
-			// stream použitý na paralélne spracovanie hitBy
 			if (e.hitBy(WALLS) || e.hitBy(BRICKS) || enemies.stream().filter(enemy -> !enemy.equals(e)).anyMatch(e::hitBy)) {
-				e.collision();
+				e.changeDirection();
 			}
 		});
 	}
 
-	public void checkPlayerCollisions(Runnable exitAction) {
-		if (player.hitBy(WALLS) || player.hitBy(BRICKS)) {
-			player.collision();
-		}
-
-	}
-
 	public Player getPlayer() {
 		return player;
+	}
+
+	public void setPlayer(Player player) {
+		this.player = player;
 	}
 
 	public Canvas getCanvas() {
