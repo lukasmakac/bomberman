@@ -1,16 +1,14 @@
 package bomberman.common;
 
-import static java.util.Collections.addAll;
-import static java.util.Collections.emptyList;
-
+import bomberman.character.Character;
 import bomberman.solid.Brick;
 import bomberman.solid.Wall;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Stream;
 import javafx.geometry.Point2D;
+import javafx.geometry.Rectangle2D;
 import javafx.scene.image.Image;
 
 public final class Utils {
@@ -59,5 +57,9 @@ public final class Utils {
           return i;
         }
     );
+  }
+
+  public static Rectangle2D getBoundingBox(Point2D position) {
+    return new Rectangle2D(position.getX(), position.getY(), Character.SIZE, Character.SIZE);
   }
 }

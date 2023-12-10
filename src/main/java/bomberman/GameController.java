@@ -43,13 +43,7 @@ public class GameController implements EventHandler<KeyEvent> {
 
     @Override
     public void handle(KeyEvent keyEvent) {
-        switch (keyEvent.getCode()) {
-            case UP -> world.getPlayer().moveUp();
-            case DOWN -> world.getPlayer().moveDown();
-            case LEFT -> world.getPlayer().moveLeft();
-            case RIGHT -> world.getPlayer().moveRight();
-            case SPACE -> world.dropBomb(world.getPlayer().getPosition());
-        }
+        drawingThread.getKeyEventHandler().handle(keyEvent);
     }
 
     public void addScore(Integer points) {

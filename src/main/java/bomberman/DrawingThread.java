@@ -4,13 +4,18 @@ import static bomberman.constant.StaticLayout.BRICKS;
 import static bomberman.constant.StaticLayout.WALLS;
 
 import bomberman.character.Enemy;
+import bomberman.handler.PlayerMovementHandler;
 import java.util.List;
 import javafx.animation.AnimationTimer;
+import javafx.event.EventHandler;
+import javafx.scene.input.KeyEvent;
 
 public class DrawingThread extends AnimationTimer {
 
   private final GameController controller;
   private final World world;
+
+  private final EventHandler<KeyEvent> keyEventHandler;
 
   public static final int MAX_STEP = 5;
 
@@ -19,6 +24,7 @@ public class DrawingThread extends AnimationTimer {
   public DrawingThread(World world, GameController controller) {
     this.world = world;
     this.controller = controller;
+    this.keyEventHandler = new PlayerMovementHandler(world);
   }
 
   @Override
@@ -30,6 +36,10 @@ public class DrawingThread extends AnimationTimer {
     simulate(Math.min(MAX_STEP, (now - lastTime) / (1.5 * 1e11)));
 
     lastTime = now;
+  }
+
+  public EventHandler<KeyEvent> getKeyEventHandler() {
+    return keyEventHandler;
   }
 
   private void simulate(double timeDelta) {

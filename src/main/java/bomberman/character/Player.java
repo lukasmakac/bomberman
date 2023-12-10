@@ -14,27 +14,20 @@ public class Player extends Character {
     this.position = position;
   }
 
-  public void moveUp() {
-    this.position = this.position.subtract(0, step);
+  public Point2D moveUp() {
+    return this.position.subtract(0, step);
   }
 
-  public void moveDown() {
-    this.position = this.position.add(0, step);
+  public Point2D moveDown() {
+    return this.position.add(0, step);
   }
 
-  public void moveRight() {
-    this.position = this.position.add(step, 0);
+  public Point2D moveRight() {
+    return this.position.add(step, 0);
   }
 
-  public void moveLeft() {
-    this.position = this.position.subtract(step, 0);
+  public Point2D moveLeft() {
+    return this.position.subtract(step, 0);
   }
 
-  public Point2D getPosition() {
-    return position;
-  }
-
-  public void setPosition(Point2D position) {
-    this.position = position;
-  }
 }

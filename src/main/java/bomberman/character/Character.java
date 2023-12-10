@@ -29,4 +29,11 @@ public abstract class Character implements Drawable, Collisional {
     return new Rectangle2D(position.getX(),position.getY(), SIZE, SIZE);
   }
 
+  public Point2D getPosition() {
+    return position;
+  }
+
+  public void setPosition(Point2D position) {
+    this.position = position;
+  }
 }
