@@ -1,8 +1,8 @@
 package bomberman.solid;
 
 import static bomberman.common.Utils.getImage;
-import static bomberman.common.Utils.translateY;
 
+import bomberman.GameController;
 import bomberman.common.Collisional;
 import bomberman.common.Drawable;
 import javafx.geometry.Point2D;
@@ -12,9 +12,11 @@ import javafx.scene.image.Image;
 
 public class Brick implements Drawable, Collisional {
   public static final Image IMAGE = getImage("brick.png");
-  public static final Integer SIZE = 20;
+  public static final Integer SIZE = 25;
 
   private final Point2D position;
+
+  private GameController controller;
 
   public Brick(Point2D position){
     this.position = position;
@@ -22,12 +24,19 @@ public class Brick implements Drawable, Collisional {
 
   @Override
   public void draw(GraphicsContext gc) {
-    gc.drawImage(IMAGE, position.getX(), translateY(position.getY(), gc.getCanvas().getHeight()), 20, 20);
-  }
+    gc.drawImage(IMAGE, position.getX(), position.getY(), SIZE, SIZE);
 
+  }
   @Override
   public Rectangle2D getBoundingBox() {
-    return new Rectangle2D(position.getX(), position.getY() - SIZE, SIZE, SIZE);
+    return new Rectangle2D(position.getX(), position.getY(), SIZE, SIZE);
+  }
+
+  public void removeBrick() {
+    // remove brick when bomb collisions the BBX of brick
+
+    // increase score
+    controller.addScore(25);
   }
 
 }

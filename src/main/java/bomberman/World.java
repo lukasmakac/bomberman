@@ -27,7 +27,7 @@ public class World {
 		this.canvas = canvas;
 		this.enemies = new ArrayList<>();
 
-		this.enemies.add(new RedFace(new Point2D(70, 20)));
+		this.enemies.add(new RedFace(new Point2D(70, 50)));
 		this.enemies.add(new Sorcerer(new Point2D(175, 270)));
 		this.enemies.add(new Sorcerer(new Point2D(160, 220)));
 

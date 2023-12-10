@@ -23,7 +23,7 @@ public class DrawingThread extends AnimationTimer {
 
   @Override
   public void handle(long now) {
-    printPosition();
+    //printPosition();
     world.draw();
 
     //time are in nanoseconds and method simulate expects seconds
@@ -50,12 +50,17 @@ public class DrawingThread extends AnimationTimer {
     });
   }
 
+  // collisions with bricks and enemies
+  public void checkBombCollision() {
+
+  }
+
   private List<Enemy> enemiesExceptEnemy(Enemy e) {
     return world.getEnemies().stream().filter(enemy -> !enemy.equals(e)).toList();
   }
-
+/*
   private void printPosition() {
     controller.setPositionText(
         "[" + world.getPlayer().getPosition().getX() + "," + world.getPlayer().getPosition().getY() + "]");
-  }
+  }*/
 }

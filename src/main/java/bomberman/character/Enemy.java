@@ -3,6 +3,7 @@ package bomberman.character;
 
 import static bomberman.common.Utils.getImage;
 
+import bomberman.GameController;
 import bomberman.common.Simulable;
 import bomberman.constant.MovementType;
 import javafx.geometry.Point2D;
@@ -13,6 +14,7 @@ public abstract class Enemy extends Character implements Simulable {
     protected Integer speed;
     protected MovementType movementType;
 
+    protected GameController controller;
     public Enemy(Point2D position, Integer speed, String imagePath, MovementType movementType) {
         super(getImage(imagePath), position);
         this.speed = speed;
@@ -25,6 +27,10 @@ public abstract class Enemy extends Character implements Simulable {
             case VERTICAL -> position = computeVertical(gc, position, deltaT);
             case HORIZONTAL -> position = computeHorizontal(gc, position, deltaT);
         }
+    }
+
+    public void increaseScore() {
+        controller.addScore(75);
     }
 
     public void changeDirection() {
@@ -57,5 +63,6 @@ public abstract class Enemy extends Character implements Simulable {
             return position;
         }
     }
+
 
 }
