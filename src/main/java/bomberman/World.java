@@ -59,7 +59,10 @@ public class World {
 	}
 
 	public void dropBomb(Point2D position) {
-		this.bombs.add(new Bomb(position));
+		Bomb bomb = new Bomb(position);
+		this.bombs.add(bomb);
+
+		Executors.newSingleThreadScheduledExecutor().schedule(() -> explode(bomb), Bomb.EXPLOSION_TIME, TimeUnit.SECONDS);
 	}
 
 	public void explode(Bomb bomb) {
