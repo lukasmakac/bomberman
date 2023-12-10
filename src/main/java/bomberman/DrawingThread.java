@@ -5,7 +5,6 @@ import static bomberman.constant.StaticLayout.WALLS;
 
 import bomberman.character.Enemy;
 import bomberman.handler.PlayerMovementHandler;
-import bomberman.solid.Brick;
 import bomberman.solid.Fire;
 import java.util.List;
 import javafx.animation.AnimationTimer;
@@ -48,8 +47,8 @@ public class DrawingThread extends AnimationTimer {
   private void simulate(double timeDelta) {
     if (!world.getEnemies().isEmpty()) {
       world.getEnemies().forEach(e -> e.simulate(world.gc(), timeDelta));
-      checkCollisions();
     }
+    checkCollisions();
   }
 
   private void checkCollisions() {
@@ -74,11 +73,7 @@ public class DrawingThread extends AnimationTimer {
             controller.stopGame(); // LOSE
           }
           for (Fire explosion : world.getExplosions()) {
-            for (Brick b : BRICKS) {
-              if (b.getBoundingBox().intersects(explosion.getBoundingBox())) {
-                BRICKS.remove(b);
-              }
-            }
+            BRICKS.removeIf(b -> b.getBoundingBox().intersects(explosion.getBoundingBox()));
           }
         }
       }
