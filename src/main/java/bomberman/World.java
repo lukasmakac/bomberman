@@ -1,8 +1,5 @@
 package bomberman;
 
-import static bomberman.constant.StaticLayout.BRICKS;
-import static bomberman.constant.StaticLayout.WALLS;
-
 import bomberman.character.Enemy;
 import bomberman.character.Player;
 import bomberman.character.RedFace;
@@ -19,13 +16,9 @@ import java.util.Set;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 import javafx.geometry.Point2D;
-import javafx.scene.canvas.Canvas;
-import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.paint.Color;
 
 public class World {
 
-	private final Canvas canvas;
 	private final List<Enemy> enemies;
 
 	private final Player player;
@@ -33,8 +26,7 @@ public class World {
 
 	private final Set<Fire> explosions;
 
-	public World(Canvas canvas) {
-		this.canvas = canvas;
+	public World() {
 		this.enemies = new ArrayList<>();
 
 		this.enemies.add(new RedFace(new Point2D(70, 20)));
@@ -44,25 +36,6 @@ public class World {
 		this.player = new Player(new Point2D(470, 470));
 		this.bombs = new ArrayList<>();
 		this.explosions = new HashSet<>();
-	}
-
-	public void draw() {
-		gc().clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
-		gc().setFill(Color.GREEN);
-		gc().fillRect(0,0, canvas.getWidth(), canvas.getHeight());
-
-		WALLS.forEach(w -> w.draw(gc()));
-		BRICKS.forEach(b -> b.draw(gc()));
-
-		enemies.forEach(e -> e.draw(gc()));
-		bombs.forEach(b -> b.draw(gc()));
-		explosions.forEach(e -> e.draw(gc()));
-
-		player.draw(gc());
-	}
-
-	public Canvas getCanvas() {
-		return canvas;
 	}
 
 	public List<Enemy> getEnemies() {
@@ -105,10 +78,6 @@ public class World {
 				.schedule(() -> explosions.removeAll(temporal), Fire.TIME_TO_CEASE, TimeUnit.SECONDS);
 
 		bombs.remove(bomb);
-	}
-
-	protected GraphicsContext gc() {
-		return canvas.getGraphicsContext2D();
 	}
 
 }

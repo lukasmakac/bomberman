@@ -10,7 +10,9 @@ import java.util.List;
 import javafx.animation.AnimationTimer;
 import javafx.application.Platform;
 import javafx.event.EventHandler;
+import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.paint.Color;
 
 public class DrawingThread extends AnimationTimer {
 
@@ -23,9 +25,9 @@ public class DrawingThread extends AnimationTimer {
 
   private long lastTime = -1;
 
-  public DrawingThread(GameController controller) {
+  public DrawingThread(GameController controller, World world) {
     this.controller = controller;
-    this.world = controller.getWorld();
+    this.world = world;
 
     this.keyEventHandler = new PlayerMovementHandler(world);
   }
@@ -33,12 +35,28 @@ public class DrawingThread extends AnimationTimer {
   @Override
   public void handle(long now) {
     printPosition();
-    Platform.runLater(world::draw);
+    Platform.runLater(this::draw);
 
     simulate(Math.min(MAX_STEP, (now - lastTime) / (1.5 * 1e11)));
 
     lastTime = now;
   }
+
+  public void draw() {
+    gc().clearRect(0, 0, controller.getCanvas().getWidth(), controller.getCanvas().getHeight());
+    gc().setFill(Color.GREEN);
+    gc().fillRect(0, 0, controller.getCanvas().getWidth(), controller.getCanvas().getHeight());
+
+    WALLS.forEach(w -> w.draw(gc()));
+    BRICKS.forEach(b -> b.draw(gc()));
+
+    world.getEnemies().forEach(e -> e.draw(gc()));
+    world.getBombs().forEach(b -> b.draw(gc()));
+    world.getExplosions().forEach(e -> e.draw(gc()));
+
+    world.getPlayer().draw(gc());
+  }
+
 
   public EventHandler<KeyEvent> getKeyEventHandler() {
     return keyEventHandler;
@@ -46,7 +64,7 @@ public class DrawingThread extends AnimationTimer {
 
   private void simulate(double timeDelta) {
     if (!world.getEnemies().isEmpty()) {
-      world.getEnemies().forEach(e -> e.simulate(world.gc(), timeDelta));
+      world.getEnemies().forEach(e -> e.simulate(gc(), timeDelta));
     }
     checkCollisions();
   }
@@ -88,5 +106,9 @@ public class DrawingThread extends AnimationTimer {
   private void printPosition() {
     controller.setPositionText(
         "[" + world.getPlayer().getPosition().getX() + "," + world.getPlayer().getPosition().getY() + "]");
+  }
+
+  private GraphicsContext gc() {
+    return controller.getCanvas().getGraphicsContext2D();
   }
 }

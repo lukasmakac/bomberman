@@ -13,8 +13,6 @@ public class GameController implements EventHandler<KeyEvent> {
     private Canvas canvas;
     private DrawingThread drawingThread;
 
-    private World world;
-
     @FXML
     private Text playerName;
 
@@ -30,10 +28,8 @@ public class GameController implements EventHandler<KeyEvent> {
     }
 
     public void startGame() {
-        world = new World(canvas);
-
         // Draw scene on a separate thread to avoid blocking UI.
-        drawingThread = new DrawingThread(this);
+        drawingThread = new DrawingThread(this, new World());
         drawingThread.start();
     }
 
@@ -55,7 +51,7 @@ public class GameController implements EventHandler<KeyEvent> {
         this.position.setText(text);
     }
 
-    public World getWorld() {
-        return this.world;
+    public Canvas getCanvas() {
+        return canvas;
     }
 }
