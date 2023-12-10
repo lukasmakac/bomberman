@@ -44,11 +44,6 @@ public class PlayerMovementHandler implements EventHandler<KeyEvent> {
 
     return !(
         BRICKS.stream().anyMatch(b -> b.getBoundingBox().intersects(boundingBox)) ||
-            WALLS.stream().anyMatch(w -> w.getBoundingBox().intersects(boundingBox)) ||
-//        world.getBombs().stream().anyMatch(b -> b.getBoundingBox().intersects(boundingBox) && !b.getBoundingBox().equals(boundingBox)) ||
-            position.getX() < 0 ||
-            position.getY() < 0 ||
-            boundingBox.getMaxX() > world.getCanvas().getWidth() ||
-            boundingBox.getMaxY() > world.getCanvas().getHeight());
+            WALLS.stream().anyMatch(w -> w.getBoundingBox().intersects(boundingBox)));
   }
 }
