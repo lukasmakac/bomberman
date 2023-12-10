@@ -9,3 +9,5 @@ Use keyboard
 * `Arrows` - movement
 * `SPACE` - drop bomb
 * `E` - explosion
+
+## Tips to play
