@@ -65,6 +65,7 @@ public class DrawingThread extends AnimationTimer {
 
         if (!world.getExplosions().isEmpty()) {
           if (e.hitBy(world.getExplosions())) {
+            controller.addScore(e.getPoints());
             world.removeEnemy(e);
           }
         }
