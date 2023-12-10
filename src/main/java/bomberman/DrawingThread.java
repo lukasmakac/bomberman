@@ -44,30 +44,32 @@ public class DrawingThread extends AnimationTimer {
   }
 
   private void simulate(double timeDelta) {
-    world.getEnemies().forEach(e -> e.simulate(world.gc(), timeDelta));
-    checkCollisions();
+    if (!world.getEnemies().isEmpty()) {
+      world.getEnemies().forEach(e -> e.simulate(world.gc(), timeDelta));
+      checkCollisions();
+    }
   }
 
   private void checkCollisions() {
-    world.getEnemies().forEach(e -> {
-      if (e.hitBy(world.getPlayer())) {
-        // stop program
-        controller.stopGame();
-      }
+    if (world.getEnemies().isEmpty()) {
+      controller.stopGame(); // WIN
+    } else {
+      for (Enemy e : world.getEnemies()) {
+        if (e.hitBy(WALLS) || e.hitBy(BRICKS) || e.hitBy(world.getBombs()) || e.hitBy(enemiesExceptEnemy(e))) {
+          e.changeDirection();
+        }
 
-      if (e.hitBy(WALLS) || e.hitBy(BRICKS) || e.hitBy(world.getBombs()) || e.hitBy(enemiesExceptEnemy(e))) {
-        e.changeDirection();
-      }
+        if (e.hitBy(world.getPlayer())) {
+          controller.stopGame(); // LOSE
+        }
 
-      if (e.hitBy(world.getExplosions())) {
-        world.getEnemies().remove(e);
-        controller.addScore(e.getPoints());
+        if (!world.getExplosions().isEmpty()) {
+          if (e.hitBy(world.getExplosions())) {
+            world.removeEnemy(e);
+          }
+        }
       }
-
-      if (world.getPlayer().hitBy(world.getExplosions())) {
-        controller.stopGame();
-      }
-    });
+    }
   }
 
   private List<Enemy> enemiesExceptEnemy(Enemy e) {

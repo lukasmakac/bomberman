@@ -78,7 +78,7 @@ public class World {
 		return player;
 	}
 
-	public void removeEnemy(Enemy enemy) {
+	public synchronized void removeEnemy(Enemy enemy) {
 		this.enemies.remove(enemy);
 	}
 

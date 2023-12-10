@@ -56,9 +56,9 @@ public final class Utils {
 
   public static List<Point2D> generateYPoints(Point2D start, Integer count, Direction direction) {
     return switch (direction) {
-      case ADD -> generateYPoints(start, UNIT_SIZE, Double.valueOf(start.getX()).intValue() + (UNIT_SIZE * count));
+      case ADD -> generateYPoints(start, UNIT_SIZE, Double.valueOf(start.getY()).intValue() + (UNIT_SIZE * count));
       case SUBTRACT -> Utils.generateYPoints(start.subtract(0, (UNIT_SIZE * count)), UNIT_SIZE,
-          Double.valueOf(start.getX()).intValue());
+          Double.valueOf(start.getY()).intValue());
     };
   }
 
