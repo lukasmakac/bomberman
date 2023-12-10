@@ -1,7 +1,6 @@
 package bomberman.solid;
 
 import static bomberman.common.Utils.getImage;
-import static bomberman.common.Utils.translateY;
 
 import bomberman.common.Collisional;
 import bomberman.common.Drawable;
@@ -22,12 +21,12 @@ public class Brick implements Drawable, Collisional {
 
   @Override
   public void draw(GraphicsContext gc) {
-    gc.drawImage(IMAGE, position.getX(), translateY(position.getY(), gc.getCanvas().getHeight()), SIZE, SIZE);
+    gc.drawImage(IMAGE, position.getX(), position.getY(), SIZE, SIZE);
   }
 
   @Override
   public Rectangle2D getBoundingBox() {
-    return new Rectangle2D(position.getX(), position.getY() - SIZE, SIZE, SIZE);
+    return new Rectangle2D(position.getX(), position.getY(), SIZE, SIZE);
   }
 
 }

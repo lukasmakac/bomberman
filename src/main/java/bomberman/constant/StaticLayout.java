@@ -38,6 +38,8 @@ public final class StaticLayout {
     WALLS.addAll(toWalls(generateXYPoints(new Point2D(445, 445), 50, 480)));
     WALLS.addAll(toWalls(generateXYPoints(new Point2D(495, 495), 50, 495)));
 
+    BRICKS.add(new Brick(new Point2D(470, 440)));
+
    /* WALLS.addAll(toWalls(generateXYPoints(new Point2D(545,545), 50, 480)));
     WALLS.addAll(toWalls(generateXYPoints(new Point2D(595,595), 50, 480)));
     WALLS.addAll(toWalls(generateXYPoints(new Point2D(645,645), 50, 480)));*/
