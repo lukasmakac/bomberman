@@ -11,4 +11,8 @@ public class RedFace extends Enemy {
     super(position, SPEED, IMAGE, MovementType.VERTICAL);
   }
 
+  @Override
+  public Integer getPoints() {
+    return 25;
+  }
 }

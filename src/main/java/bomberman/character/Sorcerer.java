@@ -12,5 +12,8 @@ public class Sorcerer extends Enemy {
     super(position, SPEED, IMAGE, MovementType.HORIZONTAL);
   }
 
-
+  @Override
+  public Integer getPoints() {
+    return 50;
+  }
 }

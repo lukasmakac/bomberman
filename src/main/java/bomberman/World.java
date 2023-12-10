@@ -7,9 +7,14 @@ import bomberman.character.Enemy;
 import bomberman.character.Player;
 import bomberman.character.RedFace;
 import bomberman.character.Sorcerer;
+import bomberman.common.Utils;
+import bomberman.constant.Direction;
 import bomberman.solid.Bomb;
+import bomberman.solid.Fire;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import javafx.geometry.Point2D;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
@@ -23,6 +28,8 @@ public class World {
 	private final Player player;
 	private final List<Bomb> bombs;
 
+	private final Set<Fire> explosions;
+
 	public World(Canvas canvas) {
 		this.canvas = canvas;
 		this.enemies = new ArrayList<>();
@@ -33,6 +40,7 @@ public class World {
 
 		this.player = new Player(new Point2D(470, 470));
 		this.bombs = new ArrayList<>();
+		this.explosions = new HashSet<>();
 	}
 
 	public void draw() {
@@ -45,6 +53,7 @@ public class World {
 
 		enemies.forEach(e -> e.draw(gc()));
 		bombs.forEach(b -> b.draw(gc()));
+		explosions.forEach(e -> e.draw(gc()));
 
 		player.draw(gc());
 	}
@@ -61,6 +70,10 @@ public class World {
     return bombs;
   }
 
+	public Set<Fire> getExplosions() {
+		return explosions;
+	}
+
 	public Player getPlayer() {
 		return player;
 	}
@@ -73,8 +86,19 @@ public class World {
 		this.bombs.add(new Bomb(position));
 	}
 
-	public void removeBomb(Bomb e) {
-		this.bombs.remove(e);
+	public void removeBomb(Bomb bomb) {
+		this.bombs.remove(bomb);
+	}
+
+	public synchronized void explode(Bomb bomb) {
+		Point2D center = bomb.getPosition();
+
+		Utils.generateXPoints(center, Bomb.EXPLOSION_SIZE, Direction.ADD).forEach(e -> explosions.add(new Fire(e)));
+		Utils.generateXPoints(center, Bomb.EXPLOSION_SIZE, Direction.SUBTRACT).forEach(e -> explosions.add(new Fire(e)));
+		Utils.generateYPoints(center, Bomb.EXPLOSION_SIZE, Direction.ADD).forEach(e -> explosions.add(new Fire(e)));
+		Utils.generateYPoints(center, Bomb.EXPLOSION_SIZE, Direction.SUBTRACT).forEach(e -> explosions.add(new Fire(e)));
+
+		bombs.remove(bomb);
 	}
 
 	protected GraphicsContext gc() {

@@ -13,25 +13,19 @@ public class Wall implements Drawable, Collisional {
     public static final Image IMAGE = getImage("wall.png");
   public static final Integer SIZE = 20;
 
-    private final Point2D position;
+  private final Point2D position;
 
-    public Wall(Point2D position){
-        this.position = position;
-    }
+  public Wall(Point2D position) {
+    this.position = position;
+  }
 
-    @Override
-    public void draw(GraphicsContext gc) {
-//        gc.drawImage(IMAGE, position.getX(), translateY(position.getY(), gc.getCanvas().getHeight()), SIZE, SIZE);
-      gc.drawImage(IMAGE, position.getX(), position.getY(), SIZE, SIZE);
-//        gc.setFill(Color.RED);
-//        gc.setGlobalAlpha(.75);
-//        gc.fillRect(getBoundingBox().getMinX(), translateY(getBoundingBox().getMinY(), gc.getCanvas().getHeight()), SIZE, SIZE);
-//        gc.fillRect(getBoundingBox().getMinX(), getBoundingBox().getMinY(), SIZE, SIZE);
-//        gc.setGlobalAlpha(1.0);
-    }
+  @Override
+  public void draw(GraphicsContext gc) {
+    gc.drawImage(IMAGE, position.getX(), position.getY(), SIZE, SIZE);
+  }
 
-    @Override
-    public Rectangle2D getBoundingBox() {
-      return new Rectangle2D(position.getX(), position.getY(), SIZE, SIZE);
+  @Override
+  public Rectangle2D getBoundingBox() {
+    return new Rectangle2D(position.getX(), position.getY(), SIZE, SIZE);
     }
 }

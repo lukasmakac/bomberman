@@ -33,7 +33,7 @@ public class GameController implements EventHandler<KeyEvent> {
         world = new World(canvas);
 
         // Draw scene on a separate thread to avoid blocking UI.
-        drawingThread = new DrawingThread(world, this);
+        drawingThread = new DrawingThread(this);
         drawingThread.start();
     }
 
@@ -53,5 +53,9 @@ public class GameController implements EventHandler<KeyEvent> {
 
     public void setPositionText(String text) {
         this.position.setText(text);
+    }
+
+    public World getWorld() {
+        return this.world;
     }
 }

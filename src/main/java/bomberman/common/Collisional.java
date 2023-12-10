@@ -1,6 +1,6 @@
 package bomberman.common;
 
-import java.util.List;
+import java.util.Collection;
 import javafx.geometry.Rectangle2D;
 
 public interface Collisional {
@@ -11,7 +11,7 @@ public interface Collisional {
     return getBoundingBox().intersects(other.getBoundingBox());
   }
 
-  default boolean hitBy(List<? extends Collisional> others) {
+  default boolean hitBy(Collection<? extends Collisional> others) {
     return others.stream().anyMatch(this::hitBy);
   }
 

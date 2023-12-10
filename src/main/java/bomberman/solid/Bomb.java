@@ -4,6 +4,7 @@ import static bomberman.common.Utils.getImage;
 
 import bomberman.common.Collisional;
 import bomberman.common.Drawable;
+import java.util.List;
 import javafx.geometry.Point2D;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.canvas.GraphicsContext;
@@ -13,9 +14,13 @@ public class Bomb implements Drawable, Collisional {
 
   public static final Image IMAGE = getImage("bomb.png");
   public static final Integer SIZE = 20;
+
   public static final Integer TIME_TO_EXPLODE = 5; // explosion time in seconds
+  public static final Integer EXPLOSION_SIZE = 5;
 
   private final Point2D position;
+
+  private List<Fire> explosion;
 
   public Bomb(Point2D position) {
     this.position = position;
@@ -23,7 +28,7 @@ public class Bomb implements Drawable, Collisional {
 
   @Override
   public void draw(GraphicsContext gc) {
-    gc.drawImage(IMAGE, position.getX(), position.getY(), 20, 20);
+    gc.drawImage(IMAGE, position.getX(), position.getY(), SIZE, SIZE);
   }
 
   @Override
@@ -31,9 +36,7 @@ public class Bomb implements Drawable, Collisional {
     return new Rectangle2D(position.getX(), position.getY(), SIZE, SIZE);
   }
 
-
-  public void explode() {
-    // TODO lukas.maruniak 2023/12/9
-
+  public Point2D getPosition() {
+    return position;
   }
 }

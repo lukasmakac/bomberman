@@ -21,9 +21,10 @@ public class DrawingThread extends AnimationTimer {
 
   private long lastTime = -1;
 
-  public DrawingThread(World world, GameController controller) {
-    this.world = world;
+  public DrawingThread(GameController controller) {
     this.controller = controller;
+    this.world = controller.getWorld();
+
     this.keyEventHandler = new PlayerMovementHandler(world);
   }
 
@@ -44,11 +45,11 @@ public class DrawingThread extends AnimationTimer {
 
   private void simulate(double timeDelta) {
     world.getEnemies().forEach(e -> e.simulate(world.gc(), timeDelta));
-    checkEnemyCollisions();
+    checkCollisions();
   }
 
-  public void checkEnemyCollisions() {
-    world.getEnemies().parallelStream().forEach(e -> {
+  private void checkCollisions() {
+    world.getEnemies().forEach(e -> {
       if (e.hitBy(world.getPlayer())) {
         // stop program
         controller.stopGame();
@@ -56,6 +57,15 @@ public class DrawingThread extends AnimationTimer {
 
       if (e.hitBy(WALLS) || e.hitBy(BRICKS) || e.hitBy(world.getBombs()) || e.hitBy(enemiesExceptEnemy(e))) {
         e.changeDirection();
+      }
+
+      if (e.hitBy(world.getExplosions())) {
+        world.getEnemies().remove(e);
+        controller.addScore(e.getPoints());
+      }
+
+      if (world.getPlayer().hitBy(world.getExplosions())) {
+        controller.stopGame();
       }
     });
   }

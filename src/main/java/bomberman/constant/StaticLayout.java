@@ -16,6 +16,8 @@ public final class StaticLayout {
   private StaticLayout() {
   }
 
+  public static final Integer UNIT_SIZE = 20;
+
   public static final List<Wall> WALLS = new ArrayList<>();
   public static final List<Brick> BRICKS = new ArrayList<>();
   

@@ -1,6 +1,9 @@
 package bomberman.common;
 
+import static bomberman.constant.StaticLayout.UNIT_SIZE;
+
 import bomberman.character.Character;
+import bomberman.constant.Direction;
 import bomberman.solid.Brick;
 import bomberman.solid.Wall;
 import java.util.ArrayList;
@@ -41,6 +44,22 @@ public final class Utils {
     points.addAll(generateYPoints(start,step,limit));
 
     return points;
+  }
+
+  public static List<Point2D> generateXPoints(Point2D start, Integer count, Direction direction) {
+    return switch (direction) {
+      case ADD -> generateXPoints(start, UNIT_SIZE, Double.valueOf(start.getX()).intValue() + (UNIT_SIZE * count));
+      case SUBTRACT ->
+          generateXPoints(start.subtract((UNIT_SIZE * count), 0), UNIT_SIZE, Double.valueOf(start.getX()).intValue());
+    };
+  }
+
+  public static List<Point2D> generateYPoints(Point2D start, Integer count, Direction direction) {
+    return switch (direction) {
+      case ADD -> generateYPoints(start, UNIT_SIZE, Double.valueOf(start.getX()).intValue() + (UNIT_SIZE * count));
+      case SUBTRACT -> Utils.generateYPoints(start.subtract(0, (UNIT_SIZE * count)), UNIT_SIZE,
+          Double.valueOf(start.getX()).intValue());
+    };
   }
 
   public static List<Point2D> generateXPoints(Point2D start, Integer step, Integer limit) {

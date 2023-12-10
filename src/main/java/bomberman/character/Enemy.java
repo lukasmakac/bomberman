@@ -58,4 +58,5 @@ public abstract class Enemy extends Character implements Simulable {
         }
     }
 
+    public abstract Integer getPoints();
 }

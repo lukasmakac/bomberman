@@ -6,6 +6,8 @@ import static bomberman.constant.StaticLayout.WALLS;
 
 import bomberman.World;
 import bomberman.character.Player;
+import bomberman.solid.Bomb;
+import java.util.Optional;
 import javafx.event.EventHandler;
 import javafx.geometry.Point2D;
 import javafx.geometry.Rectangle2D;
@@ -30,6 +32,10 @@ public class PlayerMovementHandler implements EventHandler<KeyEvent> {
       case RIGHT -> updatePosition(player, player.moveRight());
 
       case SPACE -> world.dropBomb(player.getPosition());
+      case E -> {
+        Optional<Bomb> bomb = world.getBombs().stream().findFirst();
+        bomb.ifPresent(world::explode);
+      }
     }
   }
 
