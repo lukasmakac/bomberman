@@ -8,6 +8,7 @@ import bomberman.handler.PlayerMovementHandler;
 import bomberman.solid.Fire;
 import java.util.List;
 import javafx.animation.AnimationTimer;
+import javafx.application.Platform;
 import javafx.event.EventHandler;
 import javafx.scene.input.KeyEvent;
 
@@ -32,9 +33,8 @@ public class DrawingThread extends AnimationTimer {
   @Override
   public void handle(long now) {
     printPosition();
-    world.draw();
+    Platform.runLater(world::draw);
 
-    //time are in nanoseconds and method simulate expects seconds
     simulate(Math.min(MAX_STEP, (now - lastTime) / (1.5 * 1e11)));
 
     lastTime = now;
