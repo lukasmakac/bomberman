@@ -68,6 +68,9 @@ public class DrawingThread extends AnimationTimer {
             controller.addScore(e.getPoints());
             world.removeEnemy(e);
           }
+          if (world.getPlayer().hitBy(world.getExplosions())) {
+            controller.stopGame(); // LOSE
+          }
         }
       }
     }

@@ -86,11 +86,7 @@ public class World {
 		this.bombs.add(new Bomb(position));
 	}
 
-	public void removeBomb(Bomb bomb) {
-		this.bombs.remove(bomb);
-	}
-
-	public synchronized void explode(Bomb bomb) {
+	public void explode(Bomb bomb) {
 		Point2D center = bomb.getPosition();
 
 		Utils.generateXPoints(center, Bomb.EXPLOSION_SIZE, Direction.ADD).forEach(e -> explosions.add(new Fire(e)));
