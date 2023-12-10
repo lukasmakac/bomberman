@@ -12,9 +12,12 @@ import bomberman.constant.Direction;
 import bomberman.solid.Bomb;
 import bomberman.solid.Fire;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.concurrent.Executors;
+import java.util.concurrent.TimeUnit;
 import javafx.geometry.Point2D;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
@@ -89,10 +92,17 @@ public class World {
 	public void explode(Bomb bomb) {
 		Point2D center = bomb.getPosition();
 
-		Utils.generateXPoints(center, Bomb.EXPLOSION_SIZE, Direction.ADD).forEach(e -> explosions.add(new Fire(e)));
-		Utils.generateXPoints(center, Bomb.EXPLOSION_SIZE, Direction.SUBTRACT).forEach(e -> explosions.add(new Fire(e)));
-		Utils.generateYPoints(center, Bomb.EXPLOSION_SIZE, Direction.ADD).forEach(e -> explosions.add(new Fire(e)));
-		Utils.generateYPoints(center, Bomb.EXPLOSION_SIZE, Direction.SUBTRACT).forEach(e -> explosions.add(new Fire(e)));
+		Collection<Fire> temporal = new ArrayList<>();
+
+		Utils.generateXPoints(center, Bomb.EXPLOSION_SIZE, Direction.ADD).forEach(e -> temporal.add(new Fire(e)));
+		Utils.generateXPoints(center, Bomb.EXPLOSION_SIZE, Direction.SUBTRACT).forEach(e -> temporal.add(new Fire(e)));
+		Utils.generateYPoints(center, Bomb.EXPLOSION_SIZE, Direction.ADD).forEach(e -> temporal.add(new Fire(e)));
+		Utils.generateYPoints(center, Bomb.EXPLOSION_SIZE, Direction.SUBTRACT).forEach(e -> temporal.add(new Fire(e)));
+
+		explosions.addAll(temporal);
+
+		Executors.newSingleThreadScheduledExecutor()
+				.schedule(() -> explosions.removeAll(temporal), Fire.TIME_TO_CEASE, TimeUnit.SECONDS);
 
 		bombs.remove(bomb);
 	}

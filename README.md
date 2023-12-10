@@ -1,4 +1,4 @@
-# Bombmerman
+# Bomberman
 
 Let put some bombs out there
 

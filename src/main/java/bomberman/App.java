@@ -43,7 +43,6 @@ public class App extends Application {
     }
   }
 
-
   private void exitProgram(WindowEvent evt) {
     System.exit(0);
   }
