@@ -10,8 +10,8 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 <BorderPane fx:id="pane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
-  prefHeight="590.0" prefWidth="510.0" xmlns="http://javafx.com/javafx/17.0.2-ea"
-  xmlns:fx="http://javafx.com/fxml/1" fx:controller="bomberman.GameController">
+  prefHeight="590.0" prefWidth="510.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1"
+  fx:controller="bomberman.GameController">
    <center>
      <Pane prefHeight="550.0" prefWidth="520.0" style="-fx-background-color: lightGrey;" BorderPane.alignment="CENTER">
          <children>
@@ -34,7 +34,7 @@
         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
       </rowConstraints>
       <children>
-        <Text fx:id="playerName" strokeType="OUTSIDE" strokeWidth="0.0" text="Player" textAlignment="CENTER"
+        <Text fx:id="playerStatus" strokeType="OUTSIDE" strokeWidth="0.0" text="Player" textAlignment="CENTER"
           wrappingWidth="232.7863392829895" GridPane.columnIndex="1" GridPane.rowIndex="1">
           <font>
             <Font size="25.0"/>

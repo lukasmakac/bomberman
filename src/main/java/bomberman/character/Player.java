@@ -2,6 +2,7 @@ package bomberman.character;
 
 import static bomberman.common.Utils.getImage;
 
+import bomberman.constant.PlayerStatus;
 import javafx.geometry.Point2D;
 
 public class Player extends Character {
@@ -10,10 +11,12 @@ public class Player extends Character {
   private final Integer step = 10;
 
   private Integer score = 0;
+  private PlayerStatus status;
 
   public Player(Point2D position) {
     super(getImage(IMAGE), position);
     this.position = position;
+    this.status = PlayerStatus.ALIVE;
   }
 
   public Point2D moveUp() {
@@ -40,4 +43,11 @@ public class Player extends Character {
     return score;
   }
 
+  public PlayerStatus getStatus() {
+    return status;
+  }
+
+  public void setStatus(PlayerStatus status) {
+    this.status = status;
+  }
 }

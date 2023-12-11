@@ -4,6 +4,7 @@ import static bomberman.constant.StaticLayout.BRICKS;
 import static bomberman.constant.StaticLayout.WALLS;
 
 import bomberman.character.Enemy;
+import bomberman.constant.PlayerStatus;
 import bomberman.solid.Fire;
 import java.util.List;
 import javafx.concurrent.ScheduledService;
@@ -42,6 +43,7 @@ public class SimulationService extends ScheduledService<Void> {
 
   private void checkCollisions() {
     if (world.getEnemies().isEmpty()) {
+      world.getPlayer().setStatus(PlayerStatus.WINNER);
       controller.stopGame(); // WIN
     } else {
       for (Enemy e : world.getEnemies()) {
@@ -50,6 +52,7 @@ public class SimulationService extends ScheduledService<Void> {
         }
 
         if (e.hitBy(world.getPlayer())) {
+          world.getPlayer().setStatus(PlayerStatus.DEAD);
           controller.stopGame(); // LOSE
         }
 
@@ -59,6 +62,7 @@ public class SimulationService extends ScheduledService<Void> {
             world.removeEnemy(e);
           }
           if (world.getPlayer().hitBy(world.getExplosions())) {
+            world.getPlayer().setStatus(PlayerStatus.DEAD);
             controller.stopGame(); // LOSE
           }
           for (Fire explosion : world.getExplosions()) {

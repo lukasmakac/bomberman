@@ -1,5 +1,6 @@
 package bomberman;
 
+import bomberman.constant.PlayerStatus;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.canvas.Canvas;
@@ -18,7 +19,7 @@ public class GameController implements EventHandler<KeyEvent> {
     private World world;
 
     @FXML
-    private Text playerName;
+    private Text playerStatus;
 
     @FXML
     private Label scoreLabel;
@@ -53,6 +54,10 @@ public class GameController implements EventHandler<KeyEvent> {
 
     public void setScoreLabelValue(Integer points) {
         this.scoreLabel.setText(points.toString());
+    }
+
+    public void setPlayerStatus(PlayerStatus status) {
+        this.playerStatus.setText(status.getLabel());
     }
 
     public void setPositionText(String text) {

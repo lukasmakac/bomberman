@@ -5,7 +5,6 @@ import static bomberman.constant.StaticLayout.WALLS;
 
 import bomberman.handler.PlayerMovementHandler;
 import javafx.animation.AnimationTimer;
-import javafx.application.Platform;
 import javafx.event.EventHandler;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.input.KeyEvent;
@@ -29,7 +28,7 @@ public class DrawingThread extends AnimationTimer {
   @Override
   public void handle(long now) {
     printState();
-    Platform.runLater(this::draw);
+    draw();
   }
 
   public void draw() {
@@ -54,8 +53,8 @@ public class DrawingThread extends AnimationTimer {
   private void printState() {
     controller.setPositionText(
         "[" + world.getPlayer().getPosition().getX() + "," + world.getPlayer().getPosition().getY() + "]");
-
     controller.setScoreLabelValue(world.getPlayer().getScore());
+    controller.setPlayerStatus(world.getPlayer().getStatus());
   }
 
   private GraphicsContext gc() {

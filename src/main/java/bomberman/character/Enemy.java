@@ -20,10 +20,10 @@ public abstract class Enemy extends Character implements Simulable {
     }
 
     @Override
-    public void simulate(GraphicsContext gc, double deltaT) {
+    public void simulate(GraphicsContext gc, double step) {
         switch (movementType) {
-            case VERTICAL -> position = computeVertical(gc, position, deltaT);
-            case HORIZONTAL -> position = computeHorizontal(gc, position, deltaT);
+            case VERTICAL -> position = computeVertical(gc, position, step);
+            case HORIZONTAL -> position = computeHorizontal(gc, position, step);
         }
     }
 
