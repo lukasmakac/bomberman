@@ -42,7 +42,7 @@ public abstract class Enemy extends Character implements Simulable {
     }
 
     private Double compute(Double currentPosition, Double step, Double max) {
-        double updatedPosition = (currentPosition + (speed * step) * max) % max;
+        double updatedPosition = (currentPosition + (speed * step)) % max;
         return correctPosition(updatedPosition, Character.SIZE + 1, max - 1);
     }
 

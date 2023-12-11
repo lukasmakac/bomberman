@@ -13,13 +13,14 @@ import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.concurrent.ConcurrentLinkedQueue;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 import javafx.geometry.Point2D;
 
 public class World {
 
-	private final List<Enemy> enemies;
+	private final Collection<Enemy> enemies;
 
 	private final Player player;
 	private final List<Bomb> bombs;
@@ -27,7 +28,7 @@ public class World {
 	private final Set<Fire> explosions;
 
 	public World() {
-		this.enemies = new ArrayList<>();
+		this.enemies = new ConcurrentLinkedQueue<>();
 
 		this.enemies.add(new RedFace(new Point2D(70, 20)));
 		this.enemies.add(new Sorcerer(new Point2D(175, 270)));
@@ -38,7 +39,7 @@ public class World {
 		this.explosions = new HashSet<>();
 	}
 
-	public List<Enemy> getEnemies() {
+	public Collection<Enemy> getEnemies() {
 		return enemies;
 	}
 

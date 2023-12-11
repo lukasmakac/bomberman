@@ -17,6 +17,7 @@ public class App extends Application {
   }
 
   private GameController controller;
+  private SimulationService simulationService;
 
   @Override
   public void start(Stage primaryStage) {

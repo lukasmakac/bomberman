@@ -6,12 +6,16 @@ import javafx.scene.canvas.Canvas;
 import javafx.scene.control.Label;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.text.Text;
+import javafx.util.Duration;
 
 public class GameController implements EventHandler<KeyEvent> {
 
     @FXML
     private Canvas canvas;
     private DrawingThread drawingThread;
+    private SimulationService simulationService;
+
+    private World world;
 
     @FXML
     private Text playerName;
@@ -22,15 +26,20 @@ public class GameController implements EventHandler<KeyEvent> {
     @FXML
     private Label position;
 
-    private int score;
-
     public GameController() {
     }
 
     public void startGame() {
+        this.world = new World();
+
         // Draw scene on a separate thread to avoid blocking UI.
-        drawingThread = new DrawingThread(this, new World());
+        drawingThread = new DrawingThread(this, world);
+        simulationService = new SimulationService(this, world, .025);
+
+        simulationService.setPeriod(Duration.millis(10));
+
         drawingThread.start();
+        simulationService.start();
     }
 
     public void stopGame() {
@@ -42,9 +51,8 @@ public class GameController implements EventHandler<KeyEvent> {
         drawingThread.getKeyEventHandler().handle(keyEvent);
     }
 
-    public void addScore(Integer points) {
-        score += points;
-        scoreLabel.setText(String.valueOf(score));
+    public void setScoreLabelValue(Integer points) {
+        this.scoreLabel.setText(points.toString());
     }
 
     public void setPositionText(String text) {
@@ -54,4 +62,5 @@ public class GameController implements EventHandler<KeyEvent> {
     public Canvas getCanvas() {
         return canvas;
     }
+
 }
