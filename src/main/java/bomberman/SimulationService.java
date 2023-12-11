@@ -38,40 +38,61 @@ public class SimulationService extends ScheduledService<Void> {
     if (!world.getEnemies().isEmpty()) {
       world.getEnemies().forEach(e -> e.simulate(controller.getCanvas().getGraphicsContext2D(), timeDelta));
     }
-    checkCollisions();
+    checkEnemyCollisions();
+    checkExplosionCollisions();
   }
 
-  private void checkCollisions() {
+  private void checkEnemyCollisions() {
     if (world.getEnemies().isEmpty()) {
       world.getPlayer().setStatus(PlayerStatus.WINNER);
       controller.stopGame(); // WIN
     } else {
       for (Enemy e : world.getEnemies()) {
-        if (e.hitBy(WALLS) || e.hitBy(BRICKS) || e.hitBy(world.getBombs()) || e.hitBy(enemiesExceptEnemy(e))) {
-          e.changeDirection();
-        }
-
-        if (e.hitBy(world.getPlayer())) {
-          world.getPlayer().setStatus(PlayerStatus.DEAD);
-          controller.stopGame(); // LOSE
-        }
-
-        if (!world.getExplosions().isEmpty()) {
-          if (e.hitBy(world.getExplosions())) {
-            world.getPlayer().addScore(e.getPoints());
-            world.removeEnemy(e);
-          }
-          if (world.getPlayer().hitBy(world.getExplosions())) {
-            world.getPlayer().setStatus(PlayerStatus.DEAD);
-            controller.stopGame(); // LOSE
-          }
-          for (Fire explosion : world.getExplosions()) {
-            BRICKS.removeIf(b -> b.getBoundingBox().intersects(explosion.getBoundingBox()));
-          }
-        }
+        handleObstacleCollisions(e, world);
+        handleExplosionCollisions(e, world);
+        handlePlayerCollisions(e, world);
       }
     }
+  }
 
+  private void checkExplosionCollisions() {
+    if (!world.getExplosions().isEmpty()) {
+      for (Fire explosion : world.getExplosions()) {
+        handleExplosionCollision(explosion, world);
+      }
+    }
+  }
+
+  private void handleObstacleCollisions(Enemy enemy, World world) {
+    if (enemy.hitBy(WALLS) || enemy.hitBy(BRICKS) || enemy.hitBy(world.getBombs()) || enemy.hitBy(
+        enemiesExceptEnemy(enemy))) {
+      enemy.changeDirection();
+    }
+  }
+
+  private void handleExplosionCollisions(Enemy enemy, World world) {
+    if (!world.getExplosions().isEmpty()) {
+      if (enemy.hitBy(world.getExplosions())) {
+        world.getPlayer().addScore(enemy.getPoints());
+        world.removeEnemy(enemy);
+      }
+    }
+  }
+
+  private void handlePlayerCollisions(Enemy enemy, World world) {
+    if (enemy.hitBy(world.getPlayer())) {
+      world.getPlayer().setStatus(PlayerStatus.DEAD);
+      controller.stopGame(); // LOSE
+    }
+  }
+
+  private void handleExplosionCollision(Fire explosion, World world) {
+    BRICKS.removeIf(b -> b.getBoundingBox().intersects(explosion.getBoundingBox()));
+
+    if (world.getPlayer().hitBy(explosion)) {
+      world.getPlayer().setStatus(PlayerStatus.DEAD);
+      controller.stopGame();
+    }
   }
 
   private List<Enemy> enemiesExceptEnemy(Enemy e) {
